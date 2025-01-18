@@ -9,6 +9,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
+    let titleLabel = UILabel()
     let searchBar = UISearchBar()
     let stackView = UIStackView()
     let scrollView = UIScrollView()
@@ -22,7 +23,8 @@ class BaseViewController: UIViewController {
     }
     
     func configHierarchy() {
-        [searchBar, stackView, scrollView, collectionView].forEach { view.addSubview($0) }
+        print(#function)
+        [titleLabel, searchBar, stackView, scrollView, collectionView].forEach { view.addSubview($0) }
     }
     
     func configLayout() {
@@ -30,6 +32,7 @@ class BaseViewController: UIViewController {
     }
     
     func configView() {
+        print(#function)
         view.backgroundColor = .systemBackground
     }
 }

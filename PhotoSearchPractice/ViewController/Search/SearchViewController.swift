@@ -10,4 +10,13 @@ import UIKit
 class SearchViewController: BaseViewController {
     
     
+    
+    override func configLayout() {
+        
+    }
+    
+    override func configView() {
+        super.configView()
+        self.navigationItem.title = "SEARCH PHOTO"
+    }
 }

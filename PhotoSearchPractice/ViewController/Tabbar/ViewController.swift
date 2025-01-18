@@ -30,7 +30,7 @@ class ViewController: UITabBarController {
     func setupTabbarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .red
+        appearance.backgroundColor = .secondarySystemBackground
         tabBar.standardAppearance = appearance
         tabBar.scrollEdgeAppearance = appearance
         tabBar.tintColor = .black
