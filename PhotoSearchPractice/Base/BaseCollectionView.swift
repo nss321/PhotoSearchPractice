@@ -21,6 +21,7 @@ class BaseCollectionView: UICollectionView {
     
     private func setupCollectionViewStyle() {
         backgroundColor = .clear
+        
     }
     
 }

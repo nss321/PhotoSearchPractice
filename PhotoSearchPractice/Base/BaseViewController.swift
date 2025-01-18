@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
     let searchBar = UISearchBar()
     let stackView = UIStackView()
     let scrollView = UIScrollView()
-    let collectionView = BaseCollectionView()
+    let collectionView = BaseCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
