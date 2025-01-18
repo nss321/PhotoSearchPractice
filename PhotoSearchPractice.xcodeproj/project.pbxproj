@@ -23,6 +23,12 @@
 		111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB10D2D3BF578002C4532 /* SearchViewController.swift */; };
 		111EB1112D3BFD62002C4532 /* EachTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1102D3BFD53002C4532 /* EachTopicView.swift */; };
 		111EB1172D3C0D5E002C4532 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1162D3C0D55002C4532 /* UIViewController+.swift */; };
+		111EB1192D3C1BB7002C4532 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1182D3C1BB5002C4532 /* UIColor+.swift */; };
+		111EB11D2D3C25E8002C4532 /* ResultCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB11C2D3C25DF002C4532 /* ResultCollectionView.swift */; };
+		111EB1242D3C2683002C4532 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1232D3C2682002C4532 /* Photo.swift */; };
+		111EB1262D3C26D9002C4532 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1252D3C26D6002C4532 /* Urls.swift */; };
+		111EB1282D3C26DF002C4532 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1272D3C26DC002C4532 /* APIKeys.swift */; };
+		111EB12A2D3C3362002C4532 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1292D3C335D002C4532 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +47,12 @@
 		111EB10D2D3BF578002C4532 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		111EB1102D3BFD53002C4532 /* EachTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachTopicView.swift; sourceTree = "<group>"; };
 		111EB1162D3C0D55002C4532 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		111EB1182D3C1BB5002C4532 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		111EB11C2D3C25DF002C4532 /* ResultCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionView.swift; sourceTree = "<group>"; };
+		111EB1232D3C2682002C4532 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		111EB1252D3C26D6002C4532 /* Urls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
+		111EB1272D3C26DC002C4532 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		111EB1292D3C335D002C4532 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +90,7 @@
 		111EB0EF2D39EF32002C4532 /* PhotoSearchPractice */ = {
 			isa = PBXGroup;
 			children = (
+				111EB1202D3C2663002C4532 /* Model */,
 				111EB0FB2D39EF84002C4532 /* Network */,
 				111EB0FA2D39EF6D002C4532 /* Extension */,
 				111EB0F92D39EF5C002C4532 /* Interface */,
@@ -130,6 +143,7 @@
 		111EB0FA2D39EF6D002C4532 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				111EB1182D3C1BB5002C4532 /* UIColor+.swift */,
 				111EB1162D3C0D55002C4532 /* UIViewController+.swift */,
 			);
 			path = Extension;
@@ -138,6 +152,9 @@
 		111EB0FB2D39EF84002C4532 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				111EB1292D3C335D002C4532 /* NetworkService.swift */,
+				111EB1272D3C26DC002C4532 /* APIKeys.swift */,
+				111EB1252D3C26D6002C4532 /* Urls.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -162,9 +179,18 @@
 		111EB10A2D3BF4F6002C4532 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				111EB11C2D3C25DF002C4532 /* ResultCollectionView.swift */,
 				111EB10D2D3BF578002C4532 /* SearchViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		111EB1202D3C2663002C4532 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				111EB1232D3C2682002C4532 /* Photo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,8 +279,14 @@
 				111EB0F32D39EF32002C4532 /* AppDelegate.swift in Sources */,
 				111EB1052D3BEE84002C4532 /* BaseButton.swift in Sources */,
 				111EB1172D3C0D5E002C4532 /* UIViewController+.swift in Sources */,
+				111EB11D2D3C25E8002C4532 /* ResultCollectionView.swift in Sources */,
 				111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */,
+				111EB1262D3C26D9002C4532 /* Urls.swift in Sources */,
+				111EB1282D3C26DF002C4532 /* APIKeys.swift in Sources */,
+				111EB1192D3C1BB7002C4532 /* UIColor+.swift in Sources */,
+				111EB1242D3C2683002C4532 /* Photo.swift in Sources */,
 				111EB1032D3BEDEC002C4532 /* BaseViewController.swift in Sources */,
+				111EB12A2D3C3362002C4532 /* NetworkService.swift in Sources */,
 				111EB0F42D39EF32002C4532 /* SceneDelegate.swift in Sources */,
 				111EB1112D3BFD62002C4532 /* EachTopicView.swift in Sources */,
 				111EB0F52D39EF32002C4532 /* ViewController.swift in Sources */,

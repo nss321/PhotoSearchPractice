@@ -9,10 +9,11 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    let titleLabel = UILabel()
-    let searchBar = UISearchBar()
-    let stackView = UIStackView()
-    let scrollView = UIScrollView()
+    let searchController = UISearchController(searchResultsController: nil)
+    let horizontalStackView = UIStackView()
+    let verticalStackView = UIStackView()
+    let horizontalScrollView = UIScrollView()
+    let verticalScrollView = UIScrollView()
     let collectionView = BaseCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
@@ -24,7 +25,7 @@ class BaseViewController: UIViewController {
     
     func configHierarchy() {
         print(#function)
-        [titleLabel, searchBar, stackView, scrollView, collectionView].forEach { view.addSubview($0) }
+        [horizontalStackView, verticalStackView, horizontalScrollView, verticalScrollView, collectionView].forEach { view.addSubview($0) }
     }
     
     func configLayout() {
@@ -34,5 +35,20 @@ class BaseViewController: UIViewController {
     func configView() {
         print(#function)
         view.backgroundColor = .systemBackground
+        horizontalStackView.do {
+            $0.axis = .horizontal
+            $0.backgroundColor = .clear
+            $0.distribution = .fillProportionally
+        }
+        horizontalScrollView.do {
+            $0.showsHorizontalScrollIndicator = false
+            $0.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        }
+        verticalStackView.do {
+            $0.axis = .vertical
+            $0.backgroundColor = .clear
+        }
+        
+        
     }
 }
