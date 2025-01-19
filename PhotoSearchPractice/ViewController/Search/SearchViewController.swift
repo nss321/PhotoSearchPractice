@@ -26,9 +26,20 @@ class SearchViewController: BaseViewController {
     }
     var searchedKeyword = ""
     let notiLabel = UILabel()
-    var page = 1
     var currentPage: Int {
         photoList.results.count
+    }
+    
+    let orderButton = UIButton()
+    var orderButtonTapped = false {
+        didSet {
+            print(#function)
+            orderButton.setTitleColor(.black, for: .normal)
+            orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
+            NetworkService.shared.orderedSearchPhotos(keyword: searchedKeyword, orderBy: orderButtonTapped) { Photo in
+                self.photoList = Photo
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -45,6 +56,7 @@ class SearchViewController: BaseViewController {
         [blackButton, whiteButton, yellowButton, redButton, purpleButton, greenButton, blueButton].forEach {
             horizontalStackView.addArrangedSubview($0)
         }
+        view.addSubview(orderButton)
         
     }
     
@@ -67,6 +79,11 @@ class SearchViewController: BaseViewController {
             $0.top.equalTo(horizontalScrollView.snp.bottom).offset(4)
             $0.horizontalEdges.bottom.equalToSuperview()
         }
+        
+        orderButton.snp.makeConstraints {
+            $0.centerY.equalTo(horizontalStackView.snp.centerY)
+            $0.trailing.equalToSuperview().offset(8)
+        }
     }
     
     override func configView() {
@@ -81,6 +98,23 @@ class SearchViewController: BaseViewController {
         collectionView.prefetchDataSource = self
         notiLabel.text = "사진을 검색해보세요."
         notiLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        
+        orderButton.do {
+            var config = UIButton.Configuration.plain()
+            config.title = "최신순"
+            config.baseForegroundColor = .black
+            config.background.backgroundColor = .white
+            let image = UIImage(systemName: "line.3.horizontal.decrease.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+            config.image = image
+            config.background.strokeWidth = 1
+            config.background.strokeColor = .gray
+            
+            $0.configuration = config
+            $0.addAction(UIAction(handler: { _ in
+                print(#function)
+                self.orderButtonTapped.toggle()
+            }), for: .touchUpInside)
+        }
     }
 }
 
@@ -91,6 +125,10 @@ extension SearchViewController: UISearchBarDelegate {
         NetworkService.shared.searchPhotos(keyword: searchBar.text!) {
             self.photoList = $0
         }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.photoList.results.removeAll()
     }
     
 }
@@ -119,7 +157,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         vc.givenPhotoInfo = item
         
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

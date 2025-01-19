@@ -41,6 +41,30 @@ class NetworkService {
         }
     }
     
+    func orderedSearchPhotos(keyword: String, orderBy: Bool, completion: @escaping(Photo) -> Void) {
+        let url = Urls.orderedSearch(keyword: keyword, orderBy: orderBy ? "latest" : "relevant")
+        AF.request(url, method: .get, headers: header).responseDecodable(of: Photo.self) { response in
+            switch response.result {
+            case .success(let value):
+//                dump(value)
+                completion(value)
+                break
+            case .failure(let error):
+                print(error)
+                if let errorData = response.data {
+                    do {
+                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
+                        print(errorMessage)
+                    } catch {
+                        print("catched")
+                    }
+                } else {
+                    print("failed unwrapping errorData")
+                }
+            }
+        }
+    }
+    
     func topicPhotos(topic: Topic, completion: @escaping([PhotoResult]) -> Void) {
         let url = Urls.topicSearch(topic: topic)
         print("============",#function,"============")
