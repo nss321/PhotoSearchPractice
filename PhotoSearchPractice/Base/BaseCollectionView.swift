@@ -12,6 +12,7 @@ class BaseCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         setupCollectionViewStyle()
+        configCollectionView()
     }
     
     @available(*, unavailable)
@@ -21,6 +22,10 @@ class BaseCollectionView: UICollectionView {
     
     private func setupCollectionViewStyle() {
         backgroundColor = .clear
+        
+    }
+
+    func configCollectionView() {
         
     }
     

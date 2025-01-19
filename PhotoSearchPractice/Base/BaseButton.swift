@@ -82,6 +82,4 @@ class BaseButton: UIButton {
 //            print(self.colorCode)
         }), for: .touchUpInside)
     }
-    
-    
 }
