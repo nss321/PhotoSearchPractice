@@ -16,7 +16,7 @@ class EachTopicView: UIView {
 //            collectionView.reloadData()
 //        }
 //    }
-    var topicPhotoList: [TopicResponse] = [] {
+    var topicPhotoList: [PhotoResult] = [] {
         didSet {
             collectionView.reloadData()
         }
@@ -176,7 +176,7 @@ extension EachTopicView: UICollectionViewDataSource, UICollectionViewDelegateFlo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = topicPhotoList[indexPath.row]
+        let item = topicPhotoList[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as! TopicCollectionViewCell
         
         cell.config(item: item)
@@ -188,5 +188,10 @@ extension EachTopicView: UICollectionViewDataSource, UICollectionViewDelegateFlo
         CGSize(width: imageWidth, height: imageHeight-topicLabel.frame.height-12)
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dump(topicPhotoList[indexPath.item])
+        let vc = PhotoDetailViewController()
+        vc.givenPhotoInfo = topicPhotoList[indexPath.item]
+        
+    }
 }

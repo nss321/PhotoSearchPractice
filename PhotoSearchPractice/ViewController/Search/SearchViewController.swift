@@ -83,6 +83,18 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = PhotoDetailViewController()
+        let item = photoList.results[indexPath.item]
+        NetworkService.shared.photoDetail(id: item.id) {
+            vc.photoDetail = $0
+        }
+        vc.givenPhotoInfo = item
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: (Int(UIScreen.main.bounds.width) - 2) / 2,
                height: Int(UIScreen.main.bounds.height / 3.5))

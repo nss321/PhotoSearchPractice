@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 class BaseCollectionViewCell: UICollectionViewCell {
         
@@ -59,7 +61,6 @@ class BaseCollectionViewCell: UICollectionViewCell {
         }
         
         likedContainer.do {
-            print(#function)
             $0.clipsToBounds = true
             $0.backgroundColor = .darkGray
             $0.layer.cornerRadius = 14
@@ -82,19 +83,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
     
     func config(item: PhotoResult) {
-        print(#function)
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         likedCount.text = formatter.string(for: item.likes)
         imageView.kf.setImage(with: URL(string: item.urls.thumb))
     }
-    
-    func config(item: TopicResponse) {
-        print(#function)
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        likedCount.text = formatter.string(for: item.likes)
-        imageView.kf.setImage(with: URL(string: item.urls.thumb))
-    }
-    
 }

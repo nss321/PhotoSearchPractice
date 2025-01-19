@@ -9,12 +9,20 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
+    let topic1Header = UILabel()
+    let topic2Header = UILabel()
+    let topic3Header = UILabel()
+
+    let topic1 = TopicCollectionView()
+    let topic2 = TopicCollectionView()
+    let topic3 = TopicCollectionView()
+    
     let searchController = UISearchController()
     let horizontalStackView = UIStackView()
     let verticalStackView = UIStackView()
     let horizontalScrollView = UIScrollView()
     let verticalScrollView = UIScrollView()
-    let collectionView = ResultCollectionView()
+    var collectionView = ResultCollectionView()
     
     let blackButton = BaseButton(color: .black, title: "블랙")
     let whiteButton = BaseButton(color: .white, title: "화이트")
@@ -24,6 +32,9 @@ class BaseViewController: UIViewController {
     let greenButton = BaseButton(color: .green, title: "그린")
     let blueButton = BaseButton(color: .blue, title: "블루")
     
+    let imageWidth = (UIScreen.main.bounds.width - 20) / 2
+    let imageHeight = UIScreen.main.bounds.height / 3.5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configHierarchy()
@@ -32,7 +43,6 @@ class BaseViewController: UIViewController {
     }
     
     func configHierarchy() {
-        print(#function)
         [horizontalStackView, verticalStackView, horizontalScrollView, verticalScrollView, collectionView].forEach { view.addSubview($0) }
     }
     
@@ -41,8 +51,21 @@ class BaseViewController: UIViewController {
     }
     
     func configView() {
-        print(#function)
         view.backgroundColor = .systemBackground
+        
+        topic1Header.do {
+            $0.text = "골든 아워"
+            $0.font = .preferredFont(forTextStyle: .headline)
+        }
+        topic2Header.do {
+            $0.text = "비즈니스 및 업무"
+            $0.font = .preferredFont(forTextStyle: .headline)
+        }
+        topic3Header.do {
+            $0.text = "건축 및 인테리어"
+            $0.font = .preferredFont(forTextStyle: .headline)
+        }
+        
         horizontalStackView.do {
             $0.axis = .horizontal
             $0.backgroundColor = .clear
@@ -57,7 +80,6 @@ class BaseViewController: UIViewController {
             $0.backgroundColor = .clear
         }
         searchController.searchBar.placeholder = "키워드 검색"
-        
         
     }
 }
