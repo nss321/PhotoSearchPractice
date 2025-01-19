@@ -14,7 +14,7 @@ class BaseViewController: UIViewController {
     let verticalStackView = UIStackView()
     let horizontalScrollView = UIScrollView()
     let verticalScrollView = UIScrollView()
-    let collectionView = ResultCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = ResultCollectionView()
     
     let blackButton = BaseButton(color: .black, title: "블랙")
     let whiteButton = BaseButton(color: .white, title: "화이트")

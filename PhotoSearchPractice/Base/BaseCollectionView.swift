@@ -10,7 +10,7 @@ import UIKit
 class BaseCollectionView: UICollectionView {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
+        super.init(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         setupCollectionViewStyle()
         configCollectionView()
     }
@@ -26,7 +26,6 @@ class BaseCollectionView: UICollectionView {
     }
 
     func configCollectionView() {
-        
     }
     
 }

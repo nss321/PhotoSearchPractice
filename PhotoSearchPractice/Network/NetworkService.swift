@@ -29,7 +29,7 @@ class NetworkService {
                 print(error)
                 if let errorData = response.data {
                     do {
-                        let errorMessage = try JSONDecoder().decode(PhotoSearchError.self, from: errorData)
+                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
                         print(errorMessage)
                     } catch {
                         print("catched")
@@ -40,4 +40,31 @@ class NetworkService {
             }
         }
     }
+    
+    func topicPhotos(topic: Topic, completion: @escaping([TopicResponse]) -> Void) {
+        let url = Urls.topicSearch(topic: topic)
+        print("============",#function,"============")
+        AF.request(url, method: .get, headers: header).responseDecodable(of: [TopicResponse].self) { response in
+            switch response.result {
+            case .success(let value):
+                dump(value)
+                completion(value)
+                break
+            case .failure(let error):
+                print(error)
+                if let errorData = response.data {
+                    do {
+                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
+                        print(errorMessage)
+                    } catch {
+                        print("catched")
+                    }
+                } else {
+                    print("failed unwrapping errorData")
+                }
+            }
+        }
+    }
+    
+    
 }

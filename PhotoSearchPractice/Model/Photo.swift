@@ -25,6 +25,6 @@ struct PhotoResultUrl: Decodable {
     let thumb: String
 }
 
-struct PhotoSearchError: Decodable {
+struct UnplashErrorMessage: Decodable {
     let errors: [String]
 }
