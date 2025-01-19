@@ -216,3 +216,11 @@ class PhotoDetailViewController: BaseViewController {
         }
     }
 }
+
+extension PhotoDetailViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        print(navigationController?.viewControllers.count ?? 0 )
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
+}

@@ -10,7 +10,7 @@ import Foundation
 struct Photo: Decodable {
     let total: Int
     let total_pages: Int
-    let results: [PhotoResult]
+    var results: [PhotoResult]
 }
 
 struct PhotoResult: Decodable {
