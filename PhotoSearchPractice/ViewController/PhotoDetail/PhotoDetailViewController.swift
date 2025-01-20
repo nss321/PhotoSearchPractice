@@ -152,7 +152,8 @@ class PhotoDetailViewController: BaseViewController {
             $0.font = .preferredFont(forTextStyle: .footnote)
         }
         createdDateLabel.do {
-            $0.text = givenPhotoInfo.created_at
+            let date = DateManager.shared.convertDateToString(date: givenPhotoInfo.created_at)
+            $0.text = date
             $0.font = .preferredFont(forTextStyle: .caption2)
         }
         

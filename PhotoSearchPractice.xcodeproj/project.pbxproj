@@ -35,6 +35,7 @@
 		11BF4C8F2D3D053600A1F027 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C8E2D3D052C00A1F027 /* PhotoDetailViewController.swift */; };
 		11BF4C912D3D066C00A1F027 /* PhotoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C902D3D066700A1F027 /* PhotoDetail.swift */; };
 		11BF4C932D3D326E00A1F027 /* TopicCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C922D3D326400A1F027 /* TopicCollectionHeaderView.swift */; };
+		11BF4C972D3DC79400A1F027 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C962D3DC78C00A1F027 /* DateManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		11BF4C8E2D3D052C00A1F027 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		11BF4C902D3D066700A1F027 /* PhotoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetail.swift; sourceTree = "<group>"; };
 		11BF4C922D3D326400A1F027 /* TopicCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionHeaderView.swift; sourceTree = "<group>"; };
+		11BF4C962D3DC78C00A1F027 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		111EB0EF2D39EF32002C4532 /* PhotoSearchPractice */ = {
 			isa = PBXGroup;
 			children = (
+				11BF4C952D3DC77D00A1F027 /* Utility */,
 				111EB1202D3C2663002C4532 /* Model */,
 				111EB0FB2D39EF84002C4532 /* Network */,
 				111EB0FA2D39EF6D002C4532 /* Extension */,
@@ -219,6 +222,14 @@
 			path = PhotoDetail;
 			sourceTree = "<group>";
 		};
+		11BF4C952D3DC77D00A1F027 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				11BF4C962D3DC78C00A1F027 /* DateManager.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -310,6 +321,7 @@
 				111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */,
 				111EB1262D3C26D9002C4532 /* Urls.swift in Sources */,
 				111EB1282D3C26DF002C4532 /* APIKeys.swift in Sources */,
+				11BF4C972D3DC79400A1F027 /* DateManager.swift in Sources */,
 				11BF4C882D3CED4A00A1F027 /* BaseCollectionViewCell.swift in Sources */,
 				11BF4C8A2D3CEF5800A1F027 /* TopicCollectionView.swift in Sources */,
 				111EB1192D3C1BB7002C4532 /* UIColor+.swift in Sources */,
