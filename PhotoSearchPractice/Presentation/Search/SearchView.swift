@@ -69,10 +69,13 @@ class SearchView: BaseView {
             $0.axis = .horizontal
             $0.backgroundColor = .clear
             $0.distribution = .fillProportionally
+//            $0.isLayoutMarginsRelativeArrangement = false
+//            $0.layoutMargins = UIEdgeInsets(top: 0, left: 100, bottom: 0, right: 100)
+//            $0.setCustomSpacing(100, after: blueButton)
         }
         horizontalScrollView.do {
             $0.showsHorizontalScrollIndicator = false
-            $0.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+            $0.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right:  80)
         }
         notiLabel.do {
             $0.text = "사진을 검색해보세요."
