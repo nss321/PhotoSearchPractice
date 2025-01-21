@@ -204,15 +204,11 @@ class PhotoDetailViewController: BaseViewController {
         }
         
         photoViwes.do {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            $0.text = "\(formatter.string(for: photoDetail.views.total) ?? "0")"
+            $0.text = NumberFormatManager.shared.threeDigitComma(number: photoDetail.views.total)
             $0.font = .systemFont(ofSize: 14, weight: .regular)
         }
         photoDownloads.do {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            $0.text = "\(formatter.string(for: photoDetail.downloads.total) ?? "0")"
+            $0.text = NumberFormatManager.shared.threeDigitComma(number: photoDetail.downloads.total)
             $0.font = .systemFont(ofSize: 14, weight: .regular)
         }
     }

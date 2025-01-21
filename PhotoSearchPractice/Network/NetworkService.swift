@@ -22,7 +22,6 @@ class NetworkService {
         AF.request(url, method: .get, headers: header).responseDecodable(of: Photo.self) { response in
             switch response.result {
             case .success(let value):
-//                dump(value)
                 completion(value)
                 break
             case .failure(let error):

@@ -21,75 +21,19 @@ enum Topic: String {
 
 class TopicViewController: BaseViewController {
     
-    var goldenHourPhotoList: [PhotoResult] = [] {
-        didSet {
-            topic1.reloadData()
-            print("golden hour reloaded")
-        }
-    }
-    var businessPhotoList: [PhotoResult] = [] {
-        didSet {
-            topic2.reloadData()
-            print("buisness hour reloaded")
-        }
-    }
-    var architecturePhotoList: [PhotoResult] = [] {
-        didSet {
-            topic3.reloadData()
-            print("architecture hour reloaded")
-        }
+    var goldenHourPhotoList = [PhotoResult]()
+    var businessPhotoList = [PhotoResult]()
+    var architecturePhotoList = [PhotoResult]()
+    let topicView = TopicView()
+    
+    override func loadView() {
+        print(#function)
+        view = topicView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchTopicPhotos()
-    }
-    
-    override func configHierarchy() {
-        view.addSubview(verticalScrollView)
-        [topic1Header,topic2Header,topic3Header, topic1, topic2, topic3].forEach { verticalScrollView.addSubview($0) }
-    }
-    
-    override func configLayout() {
-        verticalScrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        /*
-         코드로 작성할 땐 꼭 contentlayoutguide와 framelayoutguide에 주의하자,,,
-         */
-        
-        topic1Header.snp.makeConstraints {
-            $0.top.equalTo(verticalScrollView.contentLayoutGuide.snp.top)
-            $0.leading.equalTo(verticalScrollView.contentLayoutGuide).inset(18)
-        }
-        topic1.snp.makeConstraints {
-            $0.top.equalTo(topic1Header.snp.bottom).offset(12)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide)
-            $0.width.equalTo(verticalScrollView.frameLayoutGuide)
-            $0.height.equalTo(imageHeight)
-        }
-        topic2Header.snp.makeConstraints {
-            $0.top.equalTo(topic1.snp.bottom).offset(16)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide).inset(18)
-        }
-        topic2.snp.makeConstraints {
-            $0.top.equalTo(topic2Header.snp.bottom).offset(12)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide)
-            $0.width.equalTo(verticalScrollView.frameLayoutGuide)
-            $0.height.equalTo(imageHeight)
-        }
-        topic3Header.snp.makeConstraints {
-            $0.top.equalTo(topic2.snp.bottom).offset(16)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide).inset(18)
-        }
-        topic3.snp.makeConstraints {
-            $0.top.equalTo(topic3Header.snp.bottom).offset(12)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide)
-            $0.bottom.equalTo(verticalScrollView.contentLayoutGuide.snp.bottom)
-            $0.width.equalTo(verticalScrollView.frameLayoutGuide)
-            $0.height.equalTo(imageHeight)
-        }
     }
     
     override func configView() {
@@ -98,29 +42,50 @@ class TopicViewController: BaseViewController {
         self.navigationItem.title = "OUR TOPIC"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .automatic
-    
-        [topic1, topic2, topic3].forEach {
-            $0.delegate = self
-            $0.dataSource = self
-        }
         
     }
     
+    override func configDelegate() {
+        topicView.topic1.do {
+            $0.delegate = self
+            $0.dataSource = self
+        }
+        topicView.topic2.do {
+            $0.delegate = self
+            $0.dataSource = self
+        }
+        topicView.topic3.do {
+            $0.delegate = self
+            $0.dataSource = self
+        }
+    }
+    
     func fetchTopicPhotos() {
+        let group = DispatchGroup()
+        
+        group.enter()
         NetworkService.shared.topicPhotos(topic: .goldenHour) {
             self.goldenHourPhotoList = $0
+            group.leave()
         }
-        print("goldend hour requested")
+        
+        group.enter()
         NetworkService.shared.topicPhotos(topic: .business) {
             self.businessPhotoList = $0
+            group.leave()
         }
-        print("buisness hour requested")
 
+        group.enter()
         NetworkService.shared.topicPhotos(topic: .architecture) {
             self.architecturePhotoList = $0
+            group.leave()
         }
-        print("architecture hour requested")
-
+        
+        group.notify(queue: .main) {
+            self.topicView.topic1.reloadData()
+            self.topicView.topic2.reloadData()
+            self.topicView.topic3.reloadData()
+        }
     }
 }
 
@@ -128,11 +93,11 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
-        case topic1:
+        case topicView.topic1:
             return goldenHourPhotoList.count
-        case topic2:
+        case topicView.topic2:
             return businessPhotoList.count
-        case topic3:
+        case topicView.topic3:
             return architecturePhotoList.count
         default:
             return 0
@@ -140,16 +105,17 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(#function)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopicCollectionViewCell.id, for: indexPath) as! TopicCollectionViewCell
         
         switch collectionView {
-        case topic1:
+        case topicView.topic1:
             cell.config(item: goldenHourPhotoList[indexPath.item])
             break
-        case topic2:
+        case topicView.topic2:
             cell.config(item: businessPhotoList[indexPath.item])
             break
-        case topic3:
+        case topicView.topic3:
             cell.config(item: architecturePhotoList[indexPath.item])
             break
         default:
@@ -167,19 +133,19 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let vc = PhotoDetailViewController()
         
         switch collectionView {
-        case topic1:
+        case topicView.topic1:
             NetworkService.shared.photoDetail(id: goldenHourPhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
             }
             vc.givenPhotoInfo = goldenHourPhotoList[indexPath.item]
             break
-        case topic2:
+        case topicView.topic2:
             NetworkService.shared.photoDetail(id: businessPhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
             }
             vc.givenPhotoInfo = businessPhotoList[indexPath.item]
             break
-        case topic3:
+        case topicView.topic3:
             NetworkService.shared.photoDetail(id: architecturePhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
             }

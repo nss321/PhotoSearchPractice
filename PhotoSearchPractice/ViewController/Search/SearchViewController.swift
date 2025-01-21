@@ -46,7 +46,6 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
     }
     
-    
     override func configHierarchy() {
         super.configHierarchy()
         view.addSubview(notiLabel)
@@ -128,6 +127,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchedKeyword = ""
         self.photoList.results.removeAll()
     }
     

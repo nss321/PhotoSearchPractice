@@ -6,16 +6,11 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 class BaseViewController: UIViewController {
     
-    let topic1Header = UILabel()
-    let topic2Header = UILabel()
-    let topic3Header = UILabel()
-
-    let topic1 = TopicCollectionView()
-    let topic2 = TopicCollectionView()
-    let topic3 = TopicCollectionView()
     
     let searchController = UISearchController()
     let horizontalStackView = UIStackView()
@@ -32,14 +27,12 @@ class BaseViewController: UIViewController {
     let greenButton = BaseButton(color: .green, title: "그린")
     let blueButton = BaseButton(color: .blue, title: "블루")
     
-    let imageWidth = (UIScreen.main.bounds.width - 20) / 2
-    let imageHeight = UIScreen.main.bounds.height / 3.5
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configHierarchy()
         configLayout()
         configView()
+        configDelegate()
     }
     
     func configHierarchy() {
@@ -52,19 +45,6 @@ class BaseViewController: UIViewController {
     
     func configView() {
         view.backgroundColor = .systemBackground
-        
-        topic1Header.do {
-            $0.text = "골든 아워"
-            $0.font = .preferredFont(forTextStyle: .headline)
-        }
-        topic2Header.do {
-            $0.text = "비즈니스 및 업무"
-            $0.font = .preferredFont(forTextStyle: .headline)
-        }
-        topic3Header.do {
-            $0.text = "건축 및 인테리어"
-            $0.font = .preferredFont(forTextStyle: .headline)
-        }
         
         horizontalStackView.do {
             $0.axis = .horizontal
@@ -81,5 +61,27 @@ class BaseViewController: UIViewController {
         }
         searchController.searchBar.placeholder = "키워드 검색"
         
+    }
+    
+    func configDelegate() {
+        
+    }
+    
+    func topicSection(titleView: UILabel, collectionView: UICollectionView) -> UIView {
+        let container = UIView()
+        container.backgroundColor = .clear
+        [titleView, collectionView].forEach { container.addSubview($0) }
+        titleView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(18)
+        }
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(imageHeight)
+            $0.bottom.equalToSuperview()
+        }
+        
+        return container
     }
 }

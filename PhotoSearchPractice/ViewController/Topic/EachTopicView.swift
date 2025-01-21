@@ -25,9 +25,7 @@ class EachTopicView: UIView {
     let topicLabel = UILabel()
     let stackView = UIStackView()
     let scrollView = UIScrollView()
-    let imageWidth = (UIScreen.main.bounds.width - 20) / 2
-    let imageHeight = UIScreen.main.bounds.height / 3.5
-    
+   
     let image1 = UIImageView()
     let image2 = UIImageView()
     let image3 = UIImageView()
