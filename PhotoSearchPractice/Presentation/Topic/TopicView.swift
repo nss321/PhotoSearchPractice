@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TopicView: UIView {
+class TopicView: BaseView {
     
     
     let verticalScrollView = UIScrollView()
@@ -23,18 +23,7 @@ class TopicView: UIView {
     var container2 = UIView()
     var container3 = UIView()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configHeirarchy()
-        configLayout()
-        configView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func configHeirarchy() {
+    override func configHierarchy() {
         addSubview(verticalScrollView)
         verticalScrollView.addSubview(scrollViewContainer)
         [topic1Header, topic2Header,topic3Header, topic1, topic2, topic3].forEach {
@@ -42,7 +31,7 @@ class TopicView: UIView {
         }
     }
     
-    func configLayout() {
+    override func configLayout() {
         verticalScrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
         }
@@ -84,7 +73,7 @@ class TopicView: UIView {
         }
     }
     
-    func configView() {
+    override func configView() {
         backgroundColor = .white
         verticalScrollView.showsVerticalScrollIndicator = false
         topic1Header.do {

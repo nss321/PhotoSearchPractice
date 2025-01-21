@@ -26,6 +26,7 @@ class SearchViewController: BaseViewController {
     }
     var searchedKeyword = ""
     let notiLabel = UILabel()
+    var page: Int = 1
     var currentPage: Int {
         photoList.results.count
     }
@@ -50,7 +51,6 @@ class SearchViewController: BaseViewController {
         super.configHierarchy()
         view.addSubview(notiLabel)
         horizontalScrollView.addSubview(horizontalStackView)
-        verticalScrollView.addSubview(verticalStackView)
         
         [blackButton, whiteButton, yellowButton, redButton, purpleButton, greenButton, blueButton].forEach {
             horizontalStackView.addArrangedSubview($0)
@@ -162,7 +162,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: (Int(UIScreen.main.bounds.width) - 2) / 2,
-               height: Int(UIScreen.main.bounds.height / 3.5))
+               height: Int(imageHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -178,8 +178,9 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         print(#function)
         for item in indexPaths {
-            if currentPage - 3 == item.row {
-                NetworkService.shared.searchPhotos(keyword: searchedKeyword) {
+            if currentPage - 3 == item.row && currentPage < photoList.total {
+                page += 1
+                NetworkService.shared.searchPhotos(keyword: searchedKeyword, page: page) {
                     self.photoList.results.append(contentsOf: $0.results)
                 }
             }

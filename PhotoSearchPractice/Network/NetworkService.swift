@@ -16,8 +16,8 @@ class NetworkService {
         "Authorization" : APIKeys.photoSearchAPI
     ]
     
-    func searchPhotos(keyword: String, completion: @escaping(Photo) -> Void) {
-        let url = Urls.photoSearch(keyword: keyword)
+    func searchPhotos(keyword: String, page: Int = 1, completion: @escaping(Photo) -> Void) {
+        let url = Urls.photoSearch(keyword: keyword, page: page)
         
         AF.request(url, method: .get, headers: header).responseDecodable(of: Photo.self) { response in
             switch response.result {
