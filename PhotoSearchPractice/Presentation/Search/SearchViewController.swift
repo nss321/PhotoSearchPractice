@@ -102,12 +102,16 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = PhotoDetailViewController()
         let item = photoList.results[indexPath.item]
+        let group = DispatchGroup()
+        group.enter()
         NetworkService.shared.photoDetail(id: item.id) {
             vc.photoDetail = $0
+            vc.givenPhotoInfo = item
+            group.leave()
         }
-        vc.givenPhotoInfo = item
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        group.notify(queue: .main) {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
     }
     
