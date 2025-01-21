@@ -30,7 +30,7 @@ class BaseView: UIView {
     }
     
     func configView() {
-        
+        backgroundColor = .clear
     }
     
 }

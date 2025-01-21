@@ -14,106 +14,57 @@ class SearchViewController: BaseViewController {
     var photoList: Photo = Photo(total: 0, total_pages: 0, results: []) {
         didSet {
             if photoList.results.isEmpty {
-                notiLabel.isHidden = false
-                notiLabel.text = "검색 결과가 없어요."
+                searchView.notiLabel.isHidden = false
+                searchView.notiLabel.text = "검색 결과가 없어요."
             } else {
-                notiLabel.isHidden = true
-                notiLabel.text = ""
+                searchView.notiLabel.isHidden = true
+                searchView.notiLabel.text = ""
             }
-            collectionView.reloadData()
+            searchView.collectionView.reloadData()
             print("reloaded")
         }
     }
     var searchedKeyword = ""
-    let notiLabel = UILabel()
     var page: Int = 1
     var currentPage: Int {
         photoList.results.count
     }
     
-    let orderButton = UIButton()
     var orderButtonTapped = false {
         didSet {
             print(#function)
-            orderButton.setTitleColor(.black, for: .normal)
-            orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
+            searchView.orderButton.setTitleColor(.black, for: .normal)
+            searchView.orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
             NetworkService.shared.orderedSearchPhotos(keyword: searchedKeyword, orderBy: orderButtonTapped) { Photo in
                 self.photoList = Photo
             }
         }
     }
     
+    let searchView = SearchView()
+    
+    override func loadView() {
+        view = searchView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func configHierarchy() {
-        super.configHierarchy()
-        view.addSubview(notiLabel)
-        horizontalScrollView.addSubview(horizontalStackView)
-        
-        [blackButton, whiteButton, yellowButton, redButton, purpleButton, greenButton, blueButton].forEach {
-            horizontalStackView.addArrangedSubview($0)
-        }
-        view.addSubview(orderButton)
-        
-    }
-    
-    override func configLayout() {
-        notiLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
-        horizontalScrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(4)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(32)
-        }
-        horizontalStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.height.equalToSuperview()
-        }
-        
-        collectionView.snp.makeConstraints {
-            $0.top.equalTo(horizontalScrollView.snp.bottom).offset(4)
-            $0.horizontalEdges.bottom.equalToSuperview()
-        }
-        
-        orderButton.snp.makeConstraints {
-            $0.centerY.equalTo(horizontalStackView.snp.centerY)
-            $0.trailing.equalToSuperview().offset(8)
-        }
-    }
-    
     override func configView() {
-        super.configView()
-        searchController.searchBar.delegate = self
         self.navigationItem.title = "SEARCH PHOTO"
-        self.navigationItem.searchController = searchController
-        searchController.navigationItem.hidesSearchBarWhenScrolling = false
-        horizontalStackView.spacing = 4
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
-        notiLabel.text = "사진을 검색해보세요."
-        notiLabel.font = .systemFont(ofSize: 16, weight: .bold)
-        
-        orderButton.do {
-            var config = UIButton.Configuration.plain()
-            config.title = "최신순"
-            config.baseForegroundColor = .black
-            config.background.backgroundColor = .white
-            let image = UIImage(systemName: "line.3.horizontal.decrease.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-            config.image = image
-            config.background.strokeWidth = 1
-            config.background.strokeColor = .gray
-            
-            $0.configuration = config
-            $0.addAction(UIAction(handler: { _ in
-                print(#function)
-                self.orderButtonTapped.toggle()
-            }), for: .touchUpInside)
-        }
+        self.navigationItem.searchController = searchView.searchController
+        searchView.orderButton.addAction(UIAction(handler: { _ in
+            print(#function)
+            self.orderButtonTapped.toggle()
+        }), for: .touchUpInside)
+    }
+    
+    override func configDelegate() {
+        searchView.searchController.searchBar.delegate = self
+        searchView.collectionView.delegate = self
+        searchView.collectionView.dataSource = self
+        searchView.collectionView.prefetchDataSource = self
     }
 }
 

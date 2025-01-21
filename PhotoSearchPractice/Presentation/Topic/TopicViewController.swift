@@ -131,30 +131,40 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = PhotoDetailViewController()
+        let group = DispatchGroup()
         
         switch collectionView {
         case topicView.topic1:
+            group.enter()
             NetworkService.shared.photoDetail(id: goldenHourPhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
+                vc.givenPhotoInfo = self.goldenHourPhotoList[indexPath.item]
+                group.leave()
             }
-            vc.givenPhotoInfo = goldenHourPhotoList[indexPath.item]
             break
         case topicView.topic2:
+            group.enter()
             NetworkService.shared.photoDetail(id: businessPhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
+                vc.givenPhotoInfo = self.businessPhotoList[indexPath.item]
+                group.leave()
             }
-            vc.givenPhotoInfo = businessPhotoList[indexPath.item]
             break
         case topicView.topic3:
+            group.enter()
             NetworkService.shared.photoDetail(id: architecturePhotoList[indexPath.item].id) {
                 vc.photoDetail = $0
+                vc.givenPhotoInfo = self.architecturePhotoList[indexPath.item]
+                group.leave()
             }
-            vc.givenPhotoInfo = architecturePhotoList[indexPath.item]
             break
         default:
             break
         }
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        group.notify(queue: .main) {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
 
     }
 }

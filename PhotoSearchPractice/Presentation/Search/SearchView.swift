@@ -7,9 +7,11 @@
 
 import UIKit
 import SnapKit
+import Then
 
 class SearchView: BaseView {
     
+    let searchController = UISearchController()
     let horizontalScrollView = UIScrollView()
     let horizontalStackView = UIStackView()
     let blackButton = BaseButton(color: .black, title: "블랙")
@@ -24,13 +26,11 @@ class SearchView: BaseView {
     let orderButton = UIButton()
     
     override func configHierarchy() {
-        addSubview(notiLabel)
+        [horizontalScrollView, notiLabel, orderButton, collectionView].forEach { addSubview($0) }
         horizontalScrollView.addSubview(horizontalStackView)
-        
         [blackButton, whiteButton, yellowButton, redButton, purpleButton, greenButton, blueButton].forEach {
             horizontalStackView.addArrangedSubview($0)
         }
-        addSubview(orderButton)
     }
     
     override func configLayout() {
@@ -60,6 +60,36 @@ class SearchView: BaseView {
     }
     
     override func configView() {
+        backgroundColor = .systemBackground
+        searchController.searchBar.placeholder = "키워드 검색"
+        searchController.navigationItem.hidesSearchBarWhenScrolling = true
         
+        horizontalStackView.do {
+            $0.spacing = 4
+            $0.axis = .horizontal
+            $0.backgroundColor = .clear
+            $0.distribution = .fillProportionally
+        }
+        horizontalScrollView.do {
+            $0.showsHorizontalScrollIndicator = false
+            $0.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        }
+        notiLabel.do {
+            $0.text = "사진을 검색해보세요."
+            $0.font = .systemFont(ofSize: 16, weight: .bold)
+        }
+        
+        orderButton.do {
+            var config = UIButton.Configuration.plain()
+            config.title = "최신순"
+            config.baseForegroundColor = .black
+            config.background.backgroundColor = .white
+            let image = UIImage(systemName: "line.3.horizontal.decrease.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+            config.image = image
+            config.background.strokeWidth = 1
+            config.background.strokeColor = .gray
+            
+            $0.configuration = config
+        }
     }
 }
