@@ -37,7 +37,9 @@ final class SearchViewController: BaseViewController {
             searchView.orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
             searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: self.searchedKeyword, orderBy: self.orderButtonTapped), type: Photo.self, completion: { Photo in
-                self.photoList = Photo 
+                self.photoList = Photo
+            }, failureHandler: {
+                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
             })
         }
     }
@@ -89,6 +91,8 @@ final class SearchViewController: BaseViewController {
                 } else {
                     NetworkService.shared.callPhotoRequest(api: .colorFileteredSearch(query: searchedKeyword, color: color), type: Photo.self, completion: { Photo in
                         self.photoList = Photo
+                    }, failureHandler: {
+                        self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
                     })
                 }
             }), for: .touchUpInside)
@@ -105,6 +109,8 @@ extension SearchViewController: UISearchBarDelegate {
         } else {
             NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped), type: Photo.self, completion: { Photo in
                 self.photoList = Photo
+            }, failureHandler: {
+                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
             })
         }
     }
@@ -141,6 +147,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
             vc.photoDetail = PhotoDetail
             vc.givenPhotoInfo = item
             group.leave()
+        } failureHandler: {
+            self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
         }
         group.notify(queue: .main) {
             self.navigationController?.pushViewController(vc, animated: true)
@@ -172,6 +180,8 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
                 page += 1
                 NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped, page: page), type: Photo.self, completion: { Photo in
                     self.photoList.results.append(contentsOf: Photo.results)
+                }, failureHandler: {
+                    self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
                 })
             }
         }

@@ -67,17 +67,23 @@ final class TopicViewController: BaseViewController {
         NetworkService.shared.callPhotoRequest(api: .topic(topic: .goldenHour), type: [PhotoResult].self, completion: { PhotoList in
             self.goldenHourPhotoList = PhotoList
             group.leave()
+        }, failureHandler: {
+            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
         })
         group.enter()
         NetworkService.shared.callPhotoRequest(api: .topic(topic: .business), type: [PhotoResult].self, completion: { PhotoList in
             self.businessPhotoList = PhotoList
             group.leave()
+        }, failureHandler: {
+            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
         })
 
         group.enter()
         NetworkService.shared.callPhotoRequest(api: .topic(topic: .architecture), type: [PhotoResult].self, completion: { PhotoList in
             self.architecturePhotoList = PhotoList
             group.leave()
+        }, failureHandler: {
+            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
         })
         
         group.notify(queue: .main) {
@@ -139,6 +145,8 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 vc.photoDetail = PhotoDetail
                 vc.givenPhotoInfo = self.goldenHourPhotoList[indexPath.item]
                 group.leave()
+            }, failureHandler: {
+                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
             })
     
             break
@@ -149,6 +157,8 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 vc.givenPhotoInfo = self.businessPhotoList[indexPath.item]
                 group.leave()
                 
+            }, failureHandler: {
+                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
             })
             break
         case topicView.topic3:
@@ -157,6 +167,8 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 vc.photoDetail = PhotoDetail
                 vc.givenPhotoInfo = self.architecturePhotoList[indexPath.item]
                 group.leave()
+            }, failureHandler: {
+                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
             })
             break
         default:

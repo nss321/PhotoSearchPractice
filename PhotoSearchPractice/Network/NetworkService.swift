@@ -53,24 +53,28 @@ final class NetworkService {
     
     static let shared = NetworkService()
     
-    func callPhotoRequest<T:Decodable>(api: SearchPhotoRequest,
-                                  type: T.Type,
-                     completion: @escaping(T) -> Void) {
+    func callPhotoRequest<T: Decodable>(
+        api: SearchPhotoRequest,
+        type: T.Type,
+        completion: @escaping(T) -> Void,
+        failureHandler: @escaping(UnplashErrorMessage) -> Void
+    ) {
         AF.request(api.endpoint,
                    method: api.method,
                    headers: api.header)
             .responseDecodable(of: T.self) { response in
-                debugPrint(response)
+//                debugPrint(response)
+//                response.response?.statusCode
             switch response.result {
             case .success(let value):
                 completion(value)
                 break
             case .failure(let error):
-                print(error)
+//                print(error)
                 if let errorData = response.data {
                     do {
                         let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
-                        print(errorMessage)
+                        failureHandler(errorMessage)
                     } catch {
                         print("catched")
                     }
