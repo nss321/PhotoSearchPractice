@@ -11,6 +11,7 @@ import Alamofire
 enum SearchPhotoRequest {
     case search(query: String, page: Int = 1, per_page: Int = 20)
     case orderedSearch(query: String, orderBy: Bool, page: Int = 1, per_page: Int = 20)
+    case colorFileteredSearch(query: String, color:String, page: Int = 1, per_page: Int = 20)
     case topic
     case detail
     
@@ -25,6 +26,8 @@ enum SearchPhotoRequest {
             return URL(string: self.baseURL + "search/photos?query=\(query)&page=\(page)&per_page=\(per_page)")!
         case let .orderedSearch(query, orderBy, page, per_page):
             return URL(string: self.baseURL + "search/photos?query=\(query)&page=\(page)&per_page=\(per_page)&order_by=\(orderBy ? "latest" : "relevant")")!
+        case let .colorFileteredSearch(query, color, page, per_page):
+            return URL(string: self.baseURL + "search/photos?query=\(query)&page=\(page)&per_page=\(per_page)&color=\(color)")!
         case .topic:
             return URL(string: self.baseURL + "photos/")!
         case .detail:
@@ -45,8 +48,6 @@ enum SearchPhotoRequest {
 //    }
     
 }
-
-
 
 final class NetworkService {
     
@@ -109,9 +110,6 @@ final class NetworkService {
         }
     }
     
-    
-    
-    
     func topicPhotos(topic: Topic, completion: @escaping([PhotoResult]) -> Void) {
         let url = Urls.topicSearch(topic: topic)
         print("============",#function,"============")
@@ -160,7 +158,5 @@ final class NetworkService {
             }
         }
     }
-    
-    
     
 }

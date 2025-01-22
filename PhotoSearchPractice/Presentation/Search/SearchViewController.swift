@@ -50,6 +50,7 @@ final class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configColorButtonAction()
     }
     
     override func configView() {
@@ -69,6 +70,29 @@ final class SearchViewController: BaseViewController {
         searchView.collectionView.delegate = self
         searchView.collectionView.dataSource = self
         searchView.collectionView.prefetchDataSource = self
+    }
+    
+    func configColorButtonAction() {
+        [
+            searchView.blackButton,
+            searchView.whiteButton,
+            searchView.yellowButton,
+            searchView.redButton,
+            searchView.purpleButton,
+            searchView.greenButton,
+            searchView.blueButton
+        ].forEach {
+            let color = $0.colorQuery
+            $0.addAction(UIAction(handler: { [self] _ in
+                if searchedKeyword.isEmpty {
+                    showAlert(title: "검색어 없음", message: "검색한 내역이 없습니다.\n검색을 먼저 해주세요.", handler: nil)
+                } else {
+                    NetworkService.shared.searchPhotos(api: .colorFileteredSearch(query: searchedKeyword, color: color)) { [self] Photo in
+                        photoList = Photo
+                    }
+                }
+            }), for: .touchUpInside)
+        }
     }
 }
 
@@ -141,6 +165,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
 extension SearchViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         print(#function)
+        
+        // TODO: 페이지네이션에 컬러 필터 적용
         for item in indexPaths {
             if currentPage - 3 == item.row && currentPage < photoList.total {
                 page += 1

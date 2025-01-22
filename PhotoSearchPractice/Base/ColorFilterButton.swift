@@ -76,7 +76,7 @@ class ColorFilterButton: UIButton {
         self.configuration = config
         
         self.addAction(UIAction(handler: { _ in
-//            print(self.colorCode)
+            print(self.colorQuery)
         }), for: .touchUpInside)
     }
 }
