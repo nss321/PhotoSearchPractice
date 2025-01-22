@@ -32,10 +32,11 @@ final class SearchViewController: BaseViewController {
     
     private var orderButtonTapped = false {
         didSet {
-            print(#function)
+            searchView.searchController.searchBar.text = searchedKeyword
             searchView.orderButton.setTitleColor(.black, for: .normal)
             searchView.orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
-            NetworkService.shared.orderedSearchPhotos(keyword: searchedKeyword, orderBy: orderButtonTapped) { Photo in
+            searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: self.searchedKeyword, orderBy: self.orderButtonTapped)) { Photo in
                 self.photoList = Photo
             }
         }
@@ -54,9 +55,12 @@ final class SearchViewController: BaseViewController {
     override func configView() {
         self.navigationItem.title = "SEARCH PHOTO"
         self.navigationItem.searchController = searchView.searchController
-        searchView.orderButton.addAction(UIAction(handler: { _ in
-            print(#function)
-            self.orderButtonTapped.toggle()
+        searchView.orderButton.addAction(UIAction(handler: { [self] _ in
+            if searchedKeyword.isEmpty {
+                showAlert(title: "검색어 없음", message: "검색한 내역이 없습니다.\n검색을 먼저 해주세요.", handler: nil)
+            } else {
+                orderButtonTapped.toggle()
+            }
         }), for: .touchUpInside)
     }
     
@@ -72,8 +76,12 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(#function)
         searchedKeyword = searchBar.text!
-        NetworkService.shared.orderedSearchPhotos(keyword: searchedKeyword, orderBy: orderButtonTapped) {
-            self.photoList = $0
+        if searchedKeyword.isEmpty {
+            showAlert(title: "검색어 없음", message: "검색한 내역이 없습니다.\n검색을 먼저 해주세요.", handler: nil)
+        } else {
+            NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped)) { Photo in
+                self.photoList = Photo
+            }
         }
     }
     
@@ -136,8 +144,8 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if currentPage - 3 == item.row && currentPage < photoList.total {
                 page += 1
-                NetworkService.shared.searchPhotos(keyword: searchedKeyword, page: page) {
-                    self.photoList.results.append(contentsOf: $0.results)
+                NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped, page: page)) { Photo in
+                    self.photoList.results.append(contentsOf: Photo.results)
                 }
             }
         }

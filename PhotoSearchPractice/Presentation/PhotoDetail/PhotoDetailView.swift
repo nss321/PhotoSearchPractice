@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 import SnapKit
 import Then
 
@@ -25,7 +26,7 @@ final class PhotoDetailView: UIView {
     private let photoDownloads = UILabel()
     private let chartLabel = UILabel()
     private let chartSegment = UISegmentedControl()
-    private let group = DispatchGroup()
+    
     private var photo: PhotoResult?
     private var photoStatus: PhotoDetail?
 
