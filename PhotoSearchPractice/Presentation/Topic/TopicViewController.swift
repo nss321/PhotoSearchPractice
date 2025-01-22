@@ -64,22 +64,21 @@ final class TopicViewController: BaseViewController {
         let group = DispatchGroup()
         
         group.enter()
-        NetworkService.shared.topicPhotos(topic: .goldenHour) {
-            self.goldenHourPhotoList = $0
+        NetworkService.shared.callPhotoRequest(api: .topic(topic: .goldenHour), type: [PhotoResult].self, completion: { PhotoList in
+            self.goldenHourPhotoList = PhotoList
             group.leave()
-        }
-        
+        })
         group.enter()
-        NetworkService.shared.topicPhotos(topic: .business) {
-            self.businessPhotoList = $0
+        NetworkService.shared.callPhotoRequest(api: .topic(topic: .business), type: [PhotoResult].self, completion: { PhotoList in
+            self.businessPhotoList = PhotoList
             group.leave()
-        }
+        })
 
         group.enter()
-        NetworkService.shared.topicPhotos(topic: .architecture) {
-            self.architecturePhotoList = $0
+        NetworkService.shared.callPhotoRequest(api: .topic(topic: .architecture), type: [PhotoResult].self, completion: { PhotoList in
+            self.architecturePhotoList = PhotoList
             group.leave()
-        }
+        })
         
         group.notify(queue: .main) {
             self.topicView.topic1.reloadData()
@@ -136,27 +135,29 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
         switch collectionView {
         case topicView.topic1:
             group.enter()
-            NetworkService.shared.photoDetail(id: goldenHourPhotoList[indexPath.item].id) {
-                vc.photoDetail = $0
+            NetworkService.shared.callPhotoRequest(api: .detail(id: goldenHourPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
+                vc.photoDetail = PhotoDetail
                 vc.givenPhotoInfo = self.goldenHourPhotoList[indexPath.item]
                 group.leave()
-            }
+            })
+    
             break
         case topicView.topic2:
             group.enter()
-            NetworkService.shared.photoDetail(id: businessPhotoList[indexPath.item].id) {
-                vc.photoDetail = $0
+            NetworkService.shared.callPhotoRequest(api: .detail(id: businessPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
+                vc.photoDetail = PhotoDetail
                 vc.givenPhotoInfo = self.businessPhotoList[indexPath.item]
                 group.leave()
-            }
+                
+            })
             break
         case topicView.topic3:
             group.enter()
-            NetworkService.shared.photoDetail(id: architecturePhotoList[indexPath.item].id) {
-                vc.photoDetail = $0
+            NetworkService.shared.callPhotoRequest(api: .detail(id: businessPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
+                vc.photoDetail = PhotoDetail
                 vc.givenPhotoInfo = self.architecturePhotoList[indexPath.item]
                 group.leave()
-            }
+            })
             break
         default:
             break

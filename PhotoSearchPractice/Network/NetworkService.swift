@@ -12,8 +12,8 @@ enum SearchPhotoRequest {
     case search(query: String, page: Int = 1, per_page: Int = 20)
     case orderedSearch(query: String, orderBy: Bool, page: Int = 1, per_page: Int = 20)
     case colorFileteredSearch(query: String, color:String, page: Int = 1, per_page: Int = 20)
-    case topic
-    case detail
+    case topic(topic: Topic)
+    case detail(id: String)
     
     var baseURL: String {
         return Urls.baseURL()
@@ -28,10 +28,10 @@ enum SearchPhotoRequest {
             return URL(string: self.baseURL + "search/photos?query=\(query)&page=\(page)&per_page=\(per_page)&order_by=\(orderBy ? "latest" : "relevant")")!
         case let .colorFileteredSearch(query, color, page, per_page):
             return URL(string: self.baseURL + "search/photos?query=\(query)&page=\(page)&per_page=\(per_page)&color=\(color)")!
-        case .topic:
-            return URL(string: self.baseURL + "photos/")!
-        case .detail:
-            return URL(string: self.baseURL + "")!
+        case .topic(let topic):
+            return URL(string: self.baseURL + "topics/\(topic.rawValue)/photos?")!
+        case .detail(let id):
+            return URL(string: self.baseURL + "photos/\(id)/statistics")!
         }
     }
     
@@ -53,67 +53,14 @@ final class NetworkService {
     
     static let shared = NetworkService()
     
-    private let header: HTTPHeaders = [
-        "Authorization" : APIKeys.photoSearchAPI
-    ]
-    
-    func searchPhotos(
-        api: SearchPhotoRequest,
-        completion: @escaping(Photo) -> Void) {
-        
-            AF.request(api.endpoint,
-                       method: api.method,
-                       headers: api.header).responseDecodable(of: Photo.self) { response in
-            switch response.result {
-            case .success(let value):
-                completion(value)
-                break
-            case .failure(let error):
-                print(error)
-                if let errorData = response.data {
-                    do {
-                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
-                        print(errorMessage)
-                    } catch {
-                        print("catched")
-                    }
-                } else {
-                    print("failed unwrapping errorData")
-                }
-            }
-        }
-    }
-    
-    func orderedSearchPhotos(api: SearchPhotoRequest,
-                             completion: @escaping(Photo) -> Void) {
+    func callPhotoRequest<T:Decodable>(api: SearchPhotoRequest,
+                                  type: T.Type,
+                     completion: @escaping(T) -> Void) {
         AF.request(api.endpoint,
                    method: api.method,
-                   headers: api.header).responseDecodable(of: Photo.self) { response in
-            switch response.result {
-            case .success(let value):
-//                dump(value)
-                completion(value)
-                break
-            case .failure(let error):
-                print(error)
-                if let errorData = response.data {
-                    do {
-                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
-                        print(errorMessage)
-                    } catch {
-                        print("catched")
-                    }
-                } else {
-                    print("failed unwrapping errorData")
-                }
-            }
-        }
-    }
-    
-    func topicPhotos(topic: Topic, completion: @escaping([PhotoResult]) -> Void) {
-        let url = Urls.topicSearch(topic: topic)
-        print("============",#function,"============")
-        AF.request(url, method: .get, headers: header).responseDecodable(of: [PhotoResult].self) { response in
+                   headers: api.header)
+            .responseDecodable(of: T.self) { response in
+                debugPrint(response)
             switch response.result {
             case .success(let value):
                 completion(value)
@@ -134,29 +81,7 @@ final class NetworkService {
         }
     }
     
-    func photoDetail(id: String, completion: @escaping(PhotoDetail) -> Void) {
-        let url = Urls.photoDetail(id: id)
-        print("============",#function,"============")
-        AF.request(url, method: .get, headers: header)
-            .responseDecodable(of: PhotoDetail.self) { response in
-            switch response.result {
-            case .success(let value):
-                completion(value)
-                break
-            case .failure(let error):
-                print(error)
-                if let errorData = response.data {
-                    do {
-                        let errorMessage = try JSONDecoder().decode(UnplashErrorMessage.self, from: errorData)
-                        print(errorMessage)
-                    } catch {
-                        print("catched")
-                    }
-                } else {
-                    print("failed unwrapping errorData")
-                }
-            }
-        }
-    }
+    
+    
     
 }

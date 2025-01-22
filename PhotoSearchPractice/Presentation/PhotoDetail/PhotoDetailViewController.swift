@@ -22,11 +22,6 @@ class PhotoDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-//        photoDetailView.configView(photo: givenPhotoInfo, photoStatus: photoDetail)
-//        view.addSubview(photoDetailView)
-//        photoDetailView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
     }
     
     override func configView() {

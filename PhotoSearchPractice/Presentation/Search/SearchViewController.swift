@@ -36,9 +36,9 @@ final class SearchViewController: BaseViewController {
             searchView.orderButton.setTitleColor(.black, for: .normal)
             searchView.orderButton.setTitle(orderButtonTapped ? "관련순":"최신순", for: .normal)
             searchView.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: self.searchedKeyword, orderBy: self.orderButtonTapped)) { Photo in
-                self.photoList = Photo
-            }
+            NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: self.searchedKeyword, orderBy: self.orderButtonTapped), type: Photo.self, completion: { Photo in
+                self.photoList = Photo 
+            })
         }
     }
     
@@ -87,9 +87,9 @@ final class SearchViewController: BaseViewController {
                 if searchedKeyword.isEmpty {
                     showAlert(title: "검색어 없음", message: "검색한 내역이 없습니다.\n검색을 먼저 해주세요.", handler: nil)
                 } else {
-                    NetworkService.shared.searchPhotos(api: .colorFileteredSearch(query: searchedKeyword, color: color)) { [self] Photo in
-                        photoList = Photo
-                    }
+                    NetworkService.shared.callPhotoRequest(api: .colorFileteredSearch(query: searchedKeyword, color: color), type: Photo.self, completion: { Photo in
+                        self.photoList = Photo
+                    })
                 }
             }), for: .touchUpInside)
         }
@@ -103,9 +103,9 @@ extension SearchViewController: UISearchBarDelegate {
         if searchedKeyword.isEmpty {
             showAlert(title: "검색어 없음", message: "검색한 내역이 없습니다.\n검색을 먼저 해주세요.", handler: nil)
         } else {
-            NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped)) { Photo in
+            NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped), type: Photo.self, completion: { Photo in
                 self.photoList = Photo
-            }
+            })
         }
     }
     
@@ -137,8 +137,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         let item = photoList.results[indexPath.item]
         let group = DispatchGroup()
         group.enter()
-        NetworkService.shared.photoDetail(id: item.id) {
-            vc.photoDetail = $0
+        NetworkService.shared.callPhotoRequest(api: .detail(id: item.id), type: PhotoDetail.self) { PhotoDetail in
+            vc.photoDetail = PhotoDetail
             vc.givenPhotoInfo = item
             group.leave()
         }
@@ -170,9 +170,9 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if currentPage - 3 == item.row && currentPage < photoList.total {
                 page += 1
-                NetworkService.shared.orderedSearchPhotos(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped, page: page)) { Photo in
+                NetworkService.shared.callPhotoRequest(api: .orderedSearch(query: searchedKeyword, orderBy: orderButtonTapped, page: page), type: Photo.self, completion: { Photo in
                     self.photoList.results.append(contentsOf: Photo.results)
-                }
+                })
             }
         }
     }
