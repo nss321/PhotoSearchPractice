@@ -26,6 +26,7 @@ final class PhotoDetailView: UIView {
     private let photoDownloads = UILabel()
     private let chartLabel = UILabel()
     private let chartSegment = UISegmentedControl()
+    private let container = UIView()
     
     private var photo: PhotoResult?
     private var photoStatus: PhotoDetail?
@@ -55,21 +56,28 @@ final class PhotoDetailView: UIView {
 //    
    
     
-    func configHierarchy() {
+    private func configHierarchy() {
         addSubview(verticalScrollView)
-        [profileImage ,userNameLabel ,createdDateLabel ,photoDetailImage ,infoLabel ,photoSizeLabel ,photoViwes ,photoDownloads ,chartLabel ,chartSegment, photoSizeInfoLabel ,photoViwesInfoLabel ,photoDownloadsInfoLabel].forEach { verticalScrollView.addSubview($0) }
+        verticalScrollView.addSubview(container)
+        [profileImage ,userNameLabel ,createdDateLabel ,photoDetailImage ,infoLabel ,photoSizeLabel ,photoViwes ,photoDownloads ,chartLabel ,chartSegment, photoSizeInfoLabel ,photoViwesInfoLabel ,photoDownloadsInfoLabel].forEach { container.addSubview($0) }
     }
-    func configLayout() {
+    
+    private func configLayout() {
         verticalScrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
-            $0.width.equalToSuperview()
+        }
+        
+        container.snp.makeConstraints {
+            $0.edges.equalTo(verticalScrollView.contentLayoutGuide)
+            $0.width.equalTo(verticalScrollView.frameLayoutGuide)
         }
         
         profileImage.snp.makeConstraints {
-            $0.top.leading.equalTo(verticalScrollView.contentLayoutGuide).inset(12)
+            $0.top.leading.equalToSuperview().inset(12)
             $0.width.height.equalTo(32)
         }
         
+        // TODO: 오토레이아웃 코드 가이드? 찾아보기(e.g. 최대한 계산 적게 코드를 짜야한
         userNameLabel.snp.makeConstraints {
             $0.leading.equalTo(profileImage.snp.trailing).offset(8)
             $0.top.equalTo(profileImage.snp.top).offset(2)
@@ -83,22 +91,22 @@ final class PhotoDetailView: UIView {
         
         photoDetailImage.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(12)
-            $0.horizontalEdges.equalTo(verticalScrollView.contentLayoutGuide)
-            $0.width.equalTo(verticalScrollView.frameLayoutGuide)
+            $0.horizontalEdges.equalToSuperview()
         }
 
         infoLabel.snp.makeConstraints {
             $0.top.equalTo(photoDetailImage.snp.bottom).offset(16)
-            $0.leading.equalTo(verticalScrollView.contentLayoutGuide.snp.leading).offset(16)
+            $0.leading.equalToSuperview().offset(16)
         }
         
         photoSizeInfoLabel.snp.makeConstraints {
             $0.centerY.equalTo(infoLabel.snp.centerY)
             $0.leading.equalTo(infoLabel.snp.trailing).offset(50)
         }
+        
         photoSizeLabel.snp.makeConstraints {
             $0.centerY.equalTo(infoLabel.snp.centerY)
-            $0.trailing.equalTo(verticalScrollView.contentLayoutGuide.snp.trailing).inset(16)
+            $0.trailing.equalToSuperview().inset(16)
         }
         
         photoViwesInfoLabel.snp.makeConstraints {
@@ -107,7 +115,7 @@ final class PhotoDetailView: UIView {
         }
         photoViwes.snp.makeConstraints {
             $0.centerY.equalTo(photoViwesInfoLabel.snp.centerY)
-            $0.trailing.equalTo(verticalScrollView.contentLayoutGuide.snp.trailing).inset(16)
+            $0.trailing.equalToSuperview().inset(16)
         }
         photoDownloadsInfoLabel.snp.makeConstraints {
             $0.top.equalTo(photoViwesInfoLabel.snp.bottom).offset(16)
@@ -115,12 +123,12 @@ final class PhotoDetailView: UIView {
         }
         photoDownloads.snp.makeConstraints {
             $0.centerY.equalTo(photoDownloadsInfoLabel.snp.centerY)
-            $0.trailing.equalTo(verticalScrollView.contentLayoutGuide.snp.trailing).inset(16)
+            $0.trailing.equalToSuperview().inset(16)
         }
         chartLabel.snp.makeConstraints {
             $0.leading.equalTo(infoLabel)
             $0.top.equalTo(photoDownloadsInfoLabel.snp.bottom).offset(20)
-            $0.bottom.greaterThanOrEqualTo(verticalScrollView.contentLayoutGuide.snp.bottom).inset(60)
+            $0.bottom.greaterThanOrEqualToSuperview().inset(60)
         }
     }
     
