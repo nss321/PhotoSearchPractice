@@ -39,6 +39,9 @@ class PhotoDetailViewController: BaseViewController {
                 self.navigationController?.popViewController(animated: true)
             })
         )
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
 }
 
