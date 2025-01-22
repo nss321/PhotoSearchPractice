@@ -19,12 +19,12 @@ enum Topic: String {
     }
 }
 
-class TopicViewController: BaseViewController {
+final class TopicViewController: BaseViewController {
     
-    var goldenHourPhotoList = [PhotoResult]()
-    var businessPhotoList = [PhotoResult]()
-    var architecturePhotoList = [PhotoResult]()
-    let topicView = TopicView()
+    private var goldenHourPhotoList = [PhotoResult]()
+    private var businessPhotoList = [PhotoResult]()
+    private var architecturePhotoList = [PhotoResult]()
+    private let topicView = TopicView()
     
     override func loadView() {
         print(#function)
@@ -60,7 +60,7 @@ class TopicViewController: BaseViewController {
         }
     }
     
-    func fetchTopicPhotos() {
+    private func fetchTopicPhotos() {
         let group = DispatchGroup()
         
         group.enter()

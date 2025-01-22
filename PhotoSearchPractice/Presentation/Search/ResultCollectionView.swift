@@ -11,14 +11,14 @@ import SnapKit
 import Then
 
 
-class ResultCollectionView: BaseCollectionView {
+final class ResultCollectionView: BaseCollectionView {
     
     override func configCollectionView() {
         self.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.id)
     }
 }
 
-class ResultCollectionViewCell: BaseCollectionViewCell {
+final class ResultCollectionViewCell: BaseCollectionViewCell {
     
     static let id = "ResultCollectionViewCell"
     

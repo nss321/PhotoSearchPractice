@@ -8,20 +8,19 @@
 import UIKit
 import SnapKit
 
-class TopicView: BaseView {
-    
-    
-    let verticalScrollView = UIScrollView()
-    let scrollViewContainer = UIView()
-    let topic1Header = UILabel()
-    let topic2Header = UILabel()
-    let topic3Header = UILabel()
+final class TopicView: BaseView {
+
+    private let verticalScrollView = UIScrollView()
+    private let scrollViewContainer = UIView()
+    private let topic1Header = UILabel()
+    private let topic2Header = UILabel()
+    private let topic3Header = UILabel()
     let topic1 = TopicCollectionView()
     let topic2 = TopicCollectionView()
     let topic3 = TopicCollectionView()
-    var container1 = UIView()
-    var container2 = UIView()
-    var container3 = UIView()
+    private var container1 = UIView()
+    private var container2 = UIView()
+    private var container3 = UIView()
     
     override func configHierarchy() {
         addSubview(verticalScrollView)

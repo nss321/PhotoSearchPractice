@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-class SearchViewController: BaseViewController {
+final class SearchViewController: BaseViewController {
     
-    var photoList: Photo = Photo(total: 0, total_pages: 0, results: []) {
+    private var photoList: Photo = Photo(total: 0, total_pages: 0, results: []) {
         didSet {
             if photoList.results.isEmpty {
                 searchView.notiLabel.isHidden = false
@@ -24,13 +24,13 @@ class SearchViewController: BaseViewController {
             print("reloaded")
         }
     }
-    var searchedKeyword = ""
-    var page: Int = 1
-    var currentPage: Int {
+    private var searchedKeyword = ""
+    private var page: Int = 1
+    private var currentPage: Int {
         photoList.results.count
     }
     
-    var orderButtonTapped = false {
+    private var orderButtonTapped = false {
         didSet {
             print(#function)
             searchView.orderButton.setTitleColor(.black, for: .normal)
@@ -41,7 +41,7 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    let searchView = SearchView()
+    private let searchView = SearchView()
     
     override func loadView() {
         view = searchView

@@ -8,7 +8,7 @@
 import UIKit
 import Then
 
-class DateManager {
+final class DateManager {
     static let shared = DateManager()
     
     // 2025-01-15T01:16:15Z

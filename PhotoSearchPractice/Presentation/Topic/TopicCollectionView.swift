@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopicCollectionView: BaseCollectionView {
+final class TopicCollectionView: BaseCollectionView {
     
     override func configCollectionView() {
         super.configCollectionView()
@@ -21,7 +21,7 @@ class TopicCollectionView: BaseCollectionView {
     }
 }
 
-class TopicCollectionViewCell: BaseCollectionViewCell {
+final class TopicCollectionViewCell: BaseCollectionViewCell {
     static let id = "TopicCollectionViewCell"
     override func setupLayout() {
         super.setupLayout()

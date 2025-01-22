@@ -9,25 +9,25 @@ import UIKit
 import SnapKit
 import Then
 
-class PhotoDetailView: UIView {
+final class PhotoDetailView: UIView {
     
-    let verticalScrollView = UIScrollView()
-    let profileImage = UIImageView()
-    let userNameLabel = UILabel()
-    let createdDateLabel = UILabel()
-    let photoDetailImage = UIImageView()
-    let infoLabel = UILabel()
-    let photoSizeInfoLabel = UILabel()
-    let photoSizeLabel = UILabel()
-    let photoViwesInfoLabel = UILabel()
-    let photoViwes = UILabel()
-    let photoDownloadsInfoLabel = UILabel()
-    let photoDownloads = UILabel()
-    let chartLabel = UILabel()
-    let chartSegment = UISegmentedControl()
-    let group = DispatchGroup()
-    var photo: PhotoResult?
-    var photoStatus: PhotoDetail?
+    private let verticalScrollView = UIScrollView()
+    private let profileImage = UIImageView()
+    private let userNameLabel = UILabel()
+    private let createdDateLabel = UILabel()
+    private let photoDetailImage = UIImageView()
+    private let infoLabel = UILabel()
+    private let photoSizeInfoLabel = UILabel()
+    private let photoSizeLabel = UILabel()
+    private let photoViwesInfoLabel = UILabel()
+    private let photoViwes = UILabel()
+    private let photoDownloadsInfoLabel = UILabel()
+    private let photoDownloads = UILabel()
+    private let chartLabel = UILabel()
+    private let chartSegment = UISegmentedControl()
+    private let group = DispatchGroup()
+    private var photo: PhotoResult?
+    private var photoStatus: PhotoDetail?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
