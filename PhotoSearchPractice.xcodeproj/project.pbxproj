@@ -17,7 +17,7 @@
 		111EB0F42D39EF32002C4532 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB0ED2D39EF32002C4532 /* SceneDelegate.swift */; };
 		111EB0F52D39EF32002C4532 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB0EE2D39EF32002C4532 /* ViewController.swift */; };
 		111EB1032D3BEDEC002C4532 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1022D3BEDE0002C4532 /* BaseViewController.swift */; };
-		111EB1052D3BEE84002C4532 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1042D3BEE83002C4532 /* BaseButton.swift */; };
+		111EB1052D3BEE84002C4532 /* ColorFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1042D3BEE83002C4532 /* ColorFilterButton.swift */; };
 		111EB1072D3BF1DC002C4532 /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1062D3BF1D6002C4532 /* BaseCollectionView.swift */; };
 		111EB10C2D3BF513002C4532 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB10B2D3BF50D002C4532 /* TopicViewController.swift */; };
 		111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB10D2D3BF578002C4532 /* SearchViewController.swift */; };
@@ -51,7 +51,7 @@
 		111EB0EE2D39EF32002C4532 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		111EB0FC2D39EFEC002C4532 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		111EB1022D3BEDE0002C4532 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		111EB1042D3BEE83002C4532 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		111EB1042D3BEE83002C4532 /* ColorFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFilterButton.swift; sourceTree = "<group>"; };
 		111EB1062D3BF1D6002C4532 /* BaseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
 		111EB10B2D3BF50D002C4532 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		111EB10D2D3BF578002C4532 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 				1165BC052D3FDFD60075279F /* BaseView.swift */,
 				11BF4C872D3CED4300A1F027 /* BaseCollectionViewCell.swift */,
 				111EB1062D3BF1D6002C4532 /* BaseCollectionView.swift */,
-				111EB1042D3BEE83002C4532 /* BaseButton.swift */,
+				111EB1042D3BEE83002C4532 /* ColorFilterButton.swift */,
 				111EB1022D3BEDE0002C4532 /* BaseViewController.swift */,
 			);
 			path = Base;
@@ -323,7 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				111EB0F32D39EF32002C4532 /* AppDelegate.swift in Sources */,
-				111EB1052D3BEE84002C4532 /* BaseButton.swift in Sources */,
+				111EB1052D3BEE84002C4532 /* ColorFilterButton.swift in Sources */,
 				111EB1172D3C0D5E002C4532 /* UIViewController+.swift in Sources */,
 				111EB11D2D3C25E8002C4532 /* ResultCollectionView.swift in Sources */,
 				111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */,

@@ -20,13 +20,13 @@ final class SearchView: BaseView {
     // 근데 이렇게 하면 enum이 필요 없을거 같다.,
     // 우선 정렬 버튼부터 손봐야겠다.
     // TODO: 더 범용성 있게 사용가능한 방향 고민하기.
-    let blackButton = BaseButton(color: .black, title: "블랙")
-    let whiteButton = BaseButton(color: .white, title: "화이트")
-    let yellowButton = BaseButton(color: .yellow, title: "옐로우")
-    let redButton = BaseButton(color: .red, title: "레드")
-    let purpleButton = BaseButton(color: .purple, title: "퍼플")
-    let greenButton = BaseButton(color: .green, title: "그린")
-    let blueButton = BaseButton(color: .blue, title: "블루")
+    let blackButton = ColorFilterButton(color: .black, title: "블랙")
+    let whiteButton = ColorFilterButton(color: .white, title: "화이트")
+    let yellowButton = ColorFilterButton(color: .yellow, title: "옐로우")
+    let redButton = ColorFilterButton(color: .red, title: "레드")
+    let purpleButton = ColorFilterButton(color: .purple, title: "퍼플")
+    let greenButton = ColorFilterButton(color: .green, title: "그린")
+    let blueButton = ColorFilterButton(color: .blue, title: "블루")
     var collectionView = ResultCollectionView()
     let notiLabel = UILabel()
     let orderButton = UIButton()

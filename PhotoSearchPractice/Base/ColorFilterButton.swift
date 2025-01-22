@@ -21,7 +21,7 @@ enum ColorFilter: String {
     }
 }
 
-class BaseButton: UIButton {
+class ColorFilterButton: UIButton {
     
     let colorIndicator = UIView()
     var colorQuery = ""
