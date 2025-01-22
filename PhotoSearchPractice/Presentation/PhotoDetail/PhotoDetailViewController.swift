@@ -13,20 +13,20 @@ import Then
 class PhotoDetailViewController: BaseViewController {
     var givenPhotoInfo: PhotoResult?
     var photoDetail: PhotoDetail?
-    let photoDetailView = PhotoDetailView()
     
-//    override func loadView() {
-//        view = photoDetailView
-//    }
+    override func loadView() {
+        let photoDetailView = PhotoDetailView(photo: self.givenPhotoInfo, status: self.photoDetail)
+        view = photoDetailView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-        photoDetailView.configView(photo: givenPhotoInfo, photoStatus: photoDetail)
-        view.addSubview(photoDetailView)
-        photoDetailView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+//        photoDetailView.configView(photo: givenPhotoInfo, photoStatus: photoDetail)
+//        view.addSubview(photoDetailView)
+//        photoDetailView.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
     }
     
     override func configView() {

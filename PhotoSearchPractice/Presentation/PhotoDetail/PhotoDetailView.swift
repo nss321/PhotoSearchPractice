@@ -31,30 +31,16 @@ final class PhotoDetailView: UIView {
     private var photo: PhotoResult?
     private var photoStatus: PhotoDetail?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(photo: PhotoResult? = nil, status: PhotoDetail? = nil) {
+        super.init(frame: .zero)
         configHierarchy()
         configLayout()
+        configView(photo: photo, photoStatus: status)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    convenience init(photo: PhotoResult? = nil, status: PhotoDetail? = nil) {
-//        self.init()
-//        group.enter()
-//        self.photo = photo
-//        self.photoStatus = status
-//        group.leave()
-//        
-//        group.notify(queue: .main) {
-//            self.configView()
-//            print("디스패치 실행")
-//        }
-//    }
-//    
-   
     
     private func configHierarchy() {
         addSubview(verticalScrollView)
@@ -133,7 +119,7 @@ final class PhotoDetailView: UIView {
     }
     
     func configView(photo: PhotoResult?, photoStatus: PhotoDetail?) {
-        print(#function)
+        backgroundColor = .systemBackground
         
         guard let photo else {
             print("no photo")
