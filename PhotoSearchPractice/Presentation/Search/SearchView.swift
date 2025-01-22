@@ -14,6 +14,12 @@ class SearchView: BaseView {
     let searchController = UISearchController()
     let horizontalScrollView = UIScrollView()
     let horizontalStackView = UIStackView()
+    // 굳이 지정된 색으로 해야하는가?
+    // 좀 더 범용적으로 사용할 수 있도록 하고 싶음.
+    // 컬러와 타이틀이 별개의 패러미터니까, 컬러에는 그냥 헥스 값을 넣어줘도? 되?지? 않을지?
+    // 근데 이렇게 하면 enum이 필요 없을거 같다.,
+    // 우선 정렬 버튼부터 손봐야겠다.
+    // TODO: 더 범용성 있게 사용가능한 방향 고민하기.
     let blackButton = BaseButton(color: .black, title: "블랙")
     let whiteButton = BaseButton(color: .white, title: "화이트")
     let yellowButton = BaseButton(color: .yellow, title: "옐로우")
@@ -69,6 +75,7 @@ class SearchView: BaseView {
             $0.axis = .horizontal
             $0.backgroundColor = .clear
             $0.distribution = .fillProportionally
+            //
 //            $0.isLayoutMarginsRelativeArrangement = false
 //            $0.layoutMargins = UIEdgeInsets(top: 0, left: 100, bottom: 0, right: 100)
 //            $0.setCustomSpacing(100, after: blueButton)

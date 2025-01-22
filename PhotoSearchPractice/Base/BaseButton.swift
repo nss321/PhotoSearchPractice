@@ -51,9 +51,8 @@ class BaseButton: UIButton {
         case .green:
             configButton(color: .unsplashGreen, title: title)
         case .blue:
-            configButton(color: .unsplashGreen, title: title)
+            configButton(color: .unsplashBlue, title: title)
         }
-        
     }
     
     @available(*, unavailable)
@@ -65,11 +64,9 @@ class BaseButton: UIButton {
         backgroundColor = .systemGray4
         clipsToBounds = true
         layer.cornerRadius = 16
-        
     }
     
     func configButton(color: UIColor, title: String) {
-//        let color = UIColor(hex: color.rawValue)
         let circleColor = UIImage(systemName: "circle.fill")?.withTintColor(color, renderingMode: .alwaysOriginal)
         config.image = circleColor
         config.title = title

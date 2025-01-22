@@ -8,6 +8,41 @@
 import UIKit
 import Alamofire
 
+//enum SearchPhotoRequest {
+//    case search
+//    case orderedSearch(orderBy: Bool)
+//    
+//    var baseURL: String {
+//        return "https://api.unsplash.com/"
+//    }
+//    
+//    var endpoint: URL {
+//        switch self {
+//        case .search:
+//            return URL(string: self.baseURL + "photos/random")!
+//        case .orderedSearch(let orderBy):
+//            return URL(string: self.baseURL + "topics/\(orderBy)")!
+//        case .photo(let query):
+//            return URL(string: self.baseURL + "photos/\(query)")!
+//            
+//        }
+//    }
+//    
+//    var header: HTTPHeaders {
+//        return ["Authorization": "Client-ID \(APIKeys.photoSearchAPI)"]
+//    }
+//    
+//    var method: HTTPMethod {
+//        return .get
+//    }
+//    
+//    var parameter: Parameters {
+//        return ["page":"1", "color":"white","order_by":"relevant"]
+//    }
+//    
+//}
+
+
 class NetworkService {
     
     static let shared = NetworkService()
@@ -95,7 +130,6 @@ class NetworkService {
             .responseDecodable(of: PhotoDetail.self) { response in
             switch response.result {
             case .success(let value):
-//                dump(value)
                 completion(value)
                 break
             case .failure(let error):

@@ -83,9 +83,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
     
     func config(item: PhotoResult) {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        likedCount.text = formatter.string(for: item.likes)
+        likedCount.text = NumberFormatManager.shared.threeDigitComma(number: item.likes)
         imageView.kf.setImage(with: URL(string: item.urls.thumb))
     }
 }

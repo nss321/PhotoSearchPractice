@@ -72,13 +72,14 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(#function)
         searchedKeyword = searchBar.text!
-        NetworkService.shared.searchPhotos(keyword: searchBar.text!) {
+        NetworkService.shared.orderedSearchPhotos(keyword: searchedKeyword, orderBy: orderButtonTapped) {
             self.photoList = $0
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchedKeyword = ""
+        orderButtonTapped = false
         self.photoList.results.removeAll()
     }
     
