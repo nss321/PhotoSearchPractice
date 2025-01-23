@@ -18,4 +18,10 @@ extension UIViewController {
         alert.addAction(ok)
         present(alert, animated: true)
     }
+    
+    func pushViewControllerWithNewRoot(root: UIViewController) {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = scene.windows.first else { return }
+        window.rootViewController = UINavigationController(rootViewController: root)
+        window.makeKeyAndVisible()
+    }
 }
