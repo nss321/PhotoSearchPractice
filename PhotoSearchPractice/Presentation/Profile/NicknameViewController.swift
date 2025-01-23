@@ -30,11 +30,11 @@ class NicknameViewController: BaseViewController {
         }
     }
     override func configView() {
+        textField.placeholder = "닉네임을 입력해주세요"
         navigationItem.title = "닉네임"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
         view.backgroundColor = .white
         
-        textField.placeholder = "닉네임을 입력해주세요"
         
     }
 }

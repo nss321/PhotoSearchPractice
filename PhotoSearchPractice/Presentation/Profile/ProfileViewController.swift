@@ -18,9 +18,29 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     private let nicknameLabel = UILabel()
     private let birthdayLabel = UILabel()
     private let levelLabel = UILabel()
-        
+    private var config = UIButton.Configuration.plain()
+    var isCancel = false
+    
+    var nickname = Nickname(text: "NO NAME") {
+        didSet {
+            nicknameLabel.text = nickname.text.isEmpty ? "NO NAME" : nickname.text
+        }
+    }
+    var birthday = Birthday(date: Date(), text: "NO DATE") {
+        didSet {
+            birthdayLabel.text = birthday.text.isEmpty ? "NO DATE" : birthday.text
+        }
+    }
+    var level = Level(index: 0, text: "NO LEVEL") {
+        didSet {
+            levelLabel.text = level.text.isEmpty ? "NO LEVEL" : level.text
+        }
+    }
+    
     @objc private func okButtonTapped() {
         print(#function)
+        UserDefaultsManager.shared.resetProfile()
+        isCancel.toggle()
         guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = scene.windows.first else { return }
         window.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window.makeKeyAndVisible()
@@ -29,6 +49,16 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configNotificationCenter()
+        getProfile()
+    }
+
+    deinit {
+        // TODO: 그룹의 리브나 엔터가 남아있는지? 확인 필요. 만약 남아있다면 여러번 반복하는 과정에서 엣지 케이스 생길 수 있음.
+        print(#function)
+        if isCancel {
+        } else {
+            self.saveProfile()
+        }
     }
     
     override func configHierarchy() {
@@ -86,11 +116,11 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     }
     
     override func configView() {
+        view.backgroundColor = .systemBackground
         navigationController?.navigationItem.largeTitleDisplayMode = .inline
         navigationItem.title = "프로필 화면"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "탈퇴하기", style: .plain, target: self, action: #selector(okButtonTapped))
-        view.backgroundColor = .white
-        var config = UIButton.Configuration.plain()
+        
         config.baseForegroundColor = .black
         config.background.backgroundColor = .clear
         
@@ -113,17 +143,19 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         }
         
-        nicknameLabel.text = "NO NAME"
-        nicknameLabel.textColor = .lightGray
-        nicknameLabel.textAlignment = .right
+        nicknameLabel.do {
+            $0.textColor = .lightGray
+            $0.textAlignment = .right
+        }
         
-        birthdayLabel.text = "NO DATE"
-        birthdayLabel.textColor = .lightGray
-        birthdayLabel.textAlignment = .right
-        
-        levelLabel.text = "NO LEVEL"
-        levelLabel.textColor = .lightGray
-        levelLabel.textAlignment = .right
+        birthdayLabel.do {
+            $0.textColor = .lightGray
+            $0.textAlignment = .right
+        }
+        levelLabel.do {
+            $0.textColor = .lightGray
+            $0.textAlignment = .right
+        }
     }
     
     func configNotificationCenter() {
@@ -135,7 +167,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
         case 0:
             let vc = NicknameViewController()
             vc.contents = {
-                self.nicknameLabel.text = $0
+                self.nickname.text = $0
             }
             self.navigationController?.pushViewController(vc, animated: true)
             return
@@ -155,16 +187,45 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     
     @objc private func receiveLevelNotification(notification: NSNotification) {
         print(#function, "신호받음")
-        if let level = notification.userInfo!["level"] as? String {
-            levelLabel.text = level
+        if let index = notification.userInfo!["index"] as? Int,
+           let text = notification.userInfo!["text"] as? String {
+            level.index = index
+            level.text = text
         } else {
-            levelLabel.text = "레벨 설정 오류! 레벨을 다시 설정해주세요."
+            level.index = -1
+            level.text = "레벨 설정 오류! 레벨을 다시 설정해주세요."
         }
     }
     
+    func getProfile() {
+        if let nickname = UserDefaultsManager.shared.getProfile(kind: .nickname, type: Nickname.self) {
+            self.nickname = nickname
+        } else {
+            self.nickname = Nickname(text: "NO NAME")
+        }
+        if let birthday = UserDefaultsManager.shared.getProfile(kind: .birthday, type: Birthday.self) {
+            self.birthday = birthday
+        } else {
+            self.birthday = Birthday(date: Date(), text: "NO DATE")
+        }
+        if let level = UserDefaultsManager.shared.getProfile(kind: .level, type: Level.self) {
+            self.level = level
+        } else {
+            self.level = Level(index: 0, text: "NO LEVEL")
+        }
+    }
+    
+    func saveProfile() {
+        print(#function)
+        UserDefaultsManager.shared.setProfile(kind: .nickname, type: Nickname.self, data: nickname)
+        UserDefaultsManager.shared.setProfile(kind: .birthday, type: Birthday.self, data: birthday)
+        UserDefaultsManager.shared.setProfile(kind: .level, type: Level.self, data: level)
+    }
+    
     // MARK: PassBirthdayDelegate
-    func receiveBirthday(value: String) {
-        birthdayLabel.text = value
+    func receiveBirthday(value: String, date: Date) {
+        birthday.text = value
+        birthday.date = date
     }
     
 }

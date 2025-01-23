@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1100FC272D42801C004A4658 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1100FC262D428018004A4658 /* Profile.swift */; };
 		111EB0DE2D39EEE6002C4532 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 111EB0DD2D39EEE6002C4532 /* Kingfisher */; };
 		111EB0E12D39EEF3002C4532 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 111EB0E02D39EEF3002C4532 /* Then */; };
 		111EB0E42D39EEFD002C4532 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 111EB0E32D39EEFD002C4532 /* SnapKit */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1100FC262D428018004A4658 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		111EB0C42D39EE2C002C4532 /* PhotoSearchPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoSearchPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		111EB0E82D39EF32002C4532 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		111EB0E92D39EF32002C4532 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		111EB1202D3C2663002C4532 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1100FC262D428018004A4658 /* Profile.swift */,
 				11BF4C902D3D066700A1F027 /* PhotoDetail.swift */,
 				111EB1232D3C2682002C4532 /* Photo.swift */,
 			);
@@ -367,6 +370,7 @@
 				1165BC082D3FE0960075279F /* SearchView.swift in Sources */,
 				1165BC062D3FDFD90075279F /* BaseView.swift in Sources */,
 				111EB12A2D3C3362002C4532 /* NetworkService.swift in Sources */,
+				1100FC272D42801C004A4658 /* Profile.swift in Sources */,
 				1165BC0A2D3FEE070075279F /* PhotoDetailView.swift in Sources */,
 				111EB0F42D39EF32002C4532 /* SceneDelegate.swift in Sources */,
 				111EB0F52D39EF32002C4532 /* ViewController.swift in Sources */,

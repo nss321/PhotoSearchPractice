@@ -17,7 +17,10 @@ class LevelViewController: BaseViewController {
         NotificationCenter.default.post(
             name: NSNotification.Name("level"),
             object: nil,
-            userInfo: ["level": segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex) ?? "" ]
+            userInfo: [
+                "index": segmentedControl.selectedSegmentIndex,
+                "text": segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex) ?? ""
+            ]
         )
         navigationController?.popViewController(animated: true)
     }
@@ -37,6 +40,7 @@ class LevelViewController: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
         view.backgroundColor = .white
         segmentedControl.selectedSegmentIndex = 0
+//        segmentedControl.
     }
 
 }
