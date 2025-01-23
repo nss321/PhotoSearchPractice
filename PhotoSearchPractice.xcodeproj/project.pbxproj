@@ -34,6 +34,12 @@
 		1165BC062D3FDFD90075279F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BC052D3FDFD60075279F /* BaseView.swift */; };
 		1165BC082D3FE0960075279F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BC072D3FE0930075279F /* SearchView.swift */; };
 		1165BC0A2D3FEE070075279F /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BC092D3FEE000075279F /* PhotoDetailView.swift */; };
+		116CE5A12D42599100C2D137 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE59F2D42599100C2D137 /* ProfileViewController.swift */; };
+		116CE5A22D42599100C2D137 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE59E2D42599100C2D137 /* OnboardingViewController.swift */; };
+		116CE5A32D42599100C2D137 /* BirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE59B2D42599100C2D137 /* BirthdayViewController.swift */; };
+		116CE5A42D42599100C2D137 /* LevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE59C2D42599100C2D137 /* LevelViewController.swift */; };
+		116CE5A52D42599100C2D137 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE59D2D42599100C2D137 /* NicknameViewController.swift */; };
+		116CE5A72D425CF700C2D137 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116CE5A62D425CEE00C2D137 /* UserDefaultsManager.swift */; };
 		11BF4C882D3CED4A00A1F027 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C872D3CED4300A1F027 /* BaseCollectionViewCell.swift */; };
 		11BF4C8A2D3CEF5800A1F027 /* TopicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C892D3CEF4F00A1F027 /* TopicCollectionView.swift */; };
 		11BF4C8F2D3D053600A1F027 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4C8E2D3D052C00A1F027 /* PhotoDetailViewController.swift */; };
@@ -68,6 +74,12 @@
 		1165BC052D3FDFD60075279F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		1165BC072D3FE0930075279F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		1165BC092D3FEE000075279F /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
+		116CE59B2D42599100C2D137 /* BirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayViewController.swift; sourceTree = "<group>"; };
+		116CE59C2D42599100C2D137 /* LevelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelViewController.swift; sourceTree = "<group>"; };
+		116CE59D2D42599100C2D137 /* NicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
+		116CE59E2D42599100C2D137 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		116CE59F2D42599100C2D137 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		116CE5A62D425CEE00C2D137 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		11BF4C872D3CED4300A1F027 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		11BF4C892D3CEF4F00A1F027 /* TopicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionView.swift; sourceTree = "<group>"; };
 		11BF4C8E2D3D052C00A1F027 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				111EB1082D3BF4BF002C4532 /* Tabbar */,
+				116CE5A02D42599100C2D137 /* Profile */,
 				11BF4C8D2D3D052300A1F027 /* PhotoDetail */,
 				111EB1092D3BF4E5002C4532 /* Topic */,
 				111EB10A2D3BF4F6002C4532 /* Search */,
@@ -221,6 +234,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		116CE5A02D42599100C2D137 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				116CE59B2D42599100C2D137 /* BirthdayViewController.swift */,
+				116CE59C2D42599100C2D137 /* LevelViewController.swift */,
+				116CE59D2D42599100C2D137 /* NicknameViewController.swift */,
+				116CE59E2D42599100C2D137 /* OnboardingViewController.swift */,
+				116CE59F2D42599100C2D137 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		11BF4C8D2D3D052300A1F027 /* PhotoDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +258,7 @@
 		11BF4C952D3DC77D00A1F027 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				116CE5A62D425CEE00C2D137 /* UserDefaultsManager.swift */,
 				1165BBFE2D3FC3110075279F /* NumberFormatManager.swift */,
 				11BF4C962D3DC78C00A1F027 /* DateManager.swift */,
 			);
@@ -328,6 +354,7 @@
 				111EB11D2D3C25E8002C4532 /* ResultCollectionView.swift in Sources */,
 				111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */,
 				111EB1262D3C26D9002C4532 /* Urls.swift in Sources */,
+				116CE5A72D425CF700C2D137 /* UserDefaultsManager.swift in Sources */,
 				111EB1282D3C26DF002C4532 /* APIKeys.swift in Sources */,
 				11BF4C972D3DC79400A1F027 /* DateManager.swift in Sources */,
 				11BF4C882D3CED4A00A1F027 /* BaseCollectionViewCell.swift in Sources */,
@@ -345,6 +372,11 @@
 				111EB0F52D39EF32002C4532 /* ViewController.swift in Sources */,
 				111EB1072D3BF1DC002C4532 /* BaseCollectionView.swift in Sources */,
 				11BF4C8F2D3D053600A1F027 /* PhotoDetailViewController.swift in Sources */,
+				116CE5A12D42599100C2D137 /* ProfileViewController.swift in Sources */,
+				116CE5A22D42599100C2D137 /* OnboardingViewController.swift in Sources */,
+				116CE5A32D42599100C2D137 /* BirthdayViewController.swift in Sources */,
+				116CE5A42D42599100C2D137 /* LevelViewController.swift in Sources */,
+				116CE5A52D42599100C2D137 /* NicknameViewController.swift in Sources */,
 				111EB10C2D3BF513002C4532 /* TopicViewController.swift in Sources */,
 				1165BC012D3FD3880075279F /* TopicView.swift in Sources */,
 				1165BBFF2D3FC3190075279F /* NumberFormatManager.swift in Sources */,

@@ -42,7 +42,10 @@ final class TopicViewController: BaseViewController {
         self.navigationItem.title = "OUR TOPIC"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .automatic
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "person.circle"), primaryAction: UIAction(handler: { _ in
+            let vc = ProfileViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }), menu: nil)
     }
     
     override func configDelegate() {

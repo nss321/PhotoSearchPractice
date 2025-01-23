@@ -26,11 +26,19 @@ final class DateManager {
         $0.dateFormat = "yyyy년 M월 d일 게시됨"
     }
     
+    private let birthdayFormatter = DateFormatter().then {
+        $0.dateFormat = "yyyy년 M월 d일"
+    }
+    
     func convertDateToString(date: String) -> String {
         guard let responseDate = convertToDate.date(from: date) else {
             print(#function, "날짜 변환 실패")
             return "0000년 0월 0일 게시됨"
         }
         return convertToString.string(from: responseDate)
+    }
+    
+    func convertBirthday(date: Date) -> String {
+        return birthdayFormatter.string(from: date)
     }
 }
