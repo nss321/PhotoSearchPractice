@@ -16,6 +16,7 @@ class BirthdayViewController: BaseViewController {
     
     let datePicker = UIDatePicker()
     var contents: PassBirthdayDelegate?
+    var birthday: Birthday?
     
     @objc func okButtonTapped() {
         print(#function)
@@ -35,11 +36,17 @@ class BirthdayViewController: BaseViewController {
         
     }
     override func configView() {
+        view.backgroundColor = .systemBackground
         navigationItem.title = "생일"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
-        view.backgroundColor = .white
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
+        
+        if let birthday {
+            datePicker.date = birthday.date
+        } else {
+            datePicker.date = Date()
+        }
         
     }
     

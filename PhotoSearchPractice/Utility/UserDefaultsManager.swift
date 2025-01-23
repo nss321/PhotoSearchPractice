@@ -12,7 +12,7 @@ final class UserDefaultsManager {
     
     private init() { }
     
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
     
     enum Key: String {
         case isOnboarded, nickname, birthday, level

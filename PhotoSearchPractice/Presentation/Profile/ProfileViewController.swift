@@ -19,19 +19,19 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     private let birthdayLabel = UILabel()
     private let levelLabel = UILabel()
     private var config = UIButton.Configuration.plain()
-    var isCancel = false
+    private var isCancel = false
     
-    var nickname = Nickname(text: "NO NAME") {
+    private var nickname = Nickname(text: "NO NAME") {
         didSet {
             nicknameLabel.text = nickname.text.isEmpty ? "NO NAME" : nickname.text
         }
     }
-    var birthday = Birthday(date: Date(), text: "NO DATE") {
+    private var birthday = Birthday(date: Date(), text: "NO DATE") {
         didSet {
             birthdayLabel.text = birthday.text.isEmpty ? "NO DATE" : birthday.text
         }
     }
-    var level = Level(index: 0, text: "NO LEVEL") {
+    private var level = Level(index: 0, text: "NO LEVEL") {
         didSet {
             levelLabel.text = level.text.isEmpty ? "NO LEVEL" : level.text
         }
@@ -62,13 +62,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     }
     
     override func configHierarchy() {
-        view.addSubview(nicknameButton)
-        view.addSubview(birthdayButton)
-        view.addSubview(levelButton)
-    
-        view.addSubview(nicknameLabel)
-        view.addSubview(birthdayLabel)
-        view.addSubview(levelLabel)
+        [ nicknameButton, birthdayButton, levelButton, nicknameLabel, birthdayLabel, levelLabel ].forEach { view.addSubview($0) }
     }
     
     override func configLayout() {
@@ -158,7 +152,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
         }
     }
     
-    func configNotificationCenter() {
+    private func configNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveLevelNotification), name: NSNotification.Name("level"), object: nil)
     }
     
@@ -166,6 +160,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
         switch sender.tag {
         case 0:
             let vc = NicknameViewController()
+            vc.nickname = self.nickname
             vc.contents = {
                 self.nickname.text = $0
             }
@@ -173,11 +168,13 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
             return
         case 1:
             let vc = BirthdayViewController()
+            vc.birthday = self.birthday
             vc.contents = self
             self.navigationController?.pushViewController(vc, animated: true)
             return
         case 2:
             let vc = LevelViewController()
+            vc.level = self.level
             self.navigationController?.pushViewController(vc, animated: true)
             break
         default:
@@ -197,7 +194,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
         }
     }
     
-    func getProfile() {
+    private func getProfile() {
         if let nickname = UserDefaultsManager.shared.getProfile(kind: .nickname, type: Nickname.self) {
             self.nickname = nickname
         } else {
@@ -215,7 +212,7 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
         }
     }
     
-    func saveProfile() {
+    private func saveProfile() {
         print(#function)
         UserDefaultsManager.shared.setProfile(kind: .nickname, type: Nickname.self, data: nickname)
         UserDefaultsManager.shared.setProfile(kind: .birthday, type: Birthday.self, data: birthday)

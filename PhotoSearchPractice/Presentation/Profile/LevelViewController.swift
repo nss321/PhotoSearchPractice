@@ -11,6 +11,7 @@ import SnapKit
 class LevelViewController: BaseViewController {
 
     let segmentedControl = UISegmentedControl(items: ["상", "중", "하"])
+    var level: Level?
     
     @objc func okButtonTapped() {
         print(#function)
@@ -36,11 +37,15 @@ class LevelViewController: BaseViewController {
     }
     
     override func configView() {
+        view.backgroundColor = .systemBackground
         navigationItem.title = "레벨"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(okButtonTapped))
-        view.backgroundColor = .white
-        segmentedControl.selectedSegmentIndex = 0
-//        segmentedControl.
+        
+        if let level {
+            segmentedControl.selectedSegmentIndex = level.index
+        } else {
+            segmentedControl.selectedSegmentIndex = 0
+        }
     }
 
 }
