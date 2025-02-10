@@ -10,7 +10,7 @@ import Kingfisher
 import SnapKit
 import Then
 
-final class PhotoDetailView: UIView {
+final class PhotoDetailView: BaseView {
     
     private let verticalScrollView = UIScrollView()
     private let profileImage = UIImageView()
@@ -38,17 +38,13 @@ final class PhotoDetailView: UIView {
         configView(photo: photo, photoStatus: status)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configHierarchy() {
+    override func configHierarchy() {
         addSubview(verticalScrollView)
         verticalScrollView.addSubview(container)
         [profileImage ,userNameLabel ,createdDateLabel ,photoDetailImage ,infoLabel ,photoSizeLabel ,photoViwes ,photoDownloads ,chartLabel ,chartSegment, photoSizeInfoLabel ,photoViwesInfoLabel ,photoDownloadsInfoLabel].forEach { container.addSubview($0) }
     }
     
-    private func configLayout() {
+    override func configLayout() {
         verticalScrollView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
         }
@@ -63,7 +59,6 @@ final class PhotoDetailView: UIView {
             $0.width.height.equalTo(32)
         }
         
-        // TODO: 오토레이아웃 코드 가이드? 찾아보기(e.g. 최대한 계산 적게 코드를 짜야한
         userNameLabel.snp.makeConstraints {
             $0.leading.equalTo(profileImage.snp.trailing).offset(8)
             $0.top.equalTo(profileImage.snp.top).offset(2)
@@ -119,8 +114,6 @@ final class PhotoDetailView: UIView {
     }
     
     func configView(photo: PhotoResult?, photoStatus: PhotoDetail?) {
-        backgroundColor = .systemBackground
-        
         guard let photo else {
             print("no photo")
             return

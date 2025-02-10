@@ -13,12 +13,12 @@ struct PhotoDetail: Decodable {
 
 struct PhotoDetailDownloads: Decodable {
     let total: Int
-    let historical: PhotoHistory
+    let historical: PhotoHistory?
 }
 
 struct PhotoDetailViews: Decodable {
     let total: Int
-    let historical: PhotoHistory
+    let historical: PhotoHistory?
 }
 
 struct PhotoHistory: Decodable {

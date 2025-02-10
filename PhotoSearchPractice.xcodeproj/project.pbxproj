@@ -29,6 +29,10 @@
 		111EB1262D3C26D9002C4532 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1252D3C26D6002C4532 /* Urls.swift */; };
 		111EB1282D3C26DF002C4532 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1272D3C26DC002C4532 /* APIKeys.swift */; };
 		111EB12A2D3C3362002C4532 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111EB1292D3C335D002C4532 /* NetworkService.swift */; };
+		112910802D59F2B2002AF153 /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1129107F2D59F2AD002AF153 /* PhotoDetailViewModel.swift */; };
+		112910822D59F2BE002AF153 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112910812D59F2B8002AF153 /* BaseViewModel.swift */; };
+		112910842D59F32D002AF153 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112910832D59F329002AF153 /* Observable.swift */; };
+		112910D02D59F4AF002AF153 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112910CF2D59F4AB002AF153 /* TopicViewModel.swift */; };
 		1165BBFF2D3FC3190075279F /* NumberFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BBFE2D3FC3110075279F /* NumberFormatManager.swift */; };
 		1165BC012D3FD3880075279F /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BC002D3FD3840075279F /* TopicView.swift */; };
 		1165BC032D3FD5930075279F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1165BC022D3FD58F0075279F /* UIView+.swift */; };
@@ -70,6 +74,10 @@
 		111EB1252D3C26D6002C4532 /* Urls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
 		111EB1272D3C26DC002C4532 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		111EB1292D3C335D002C4532 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		1129107F2D59F2AD002AF153 /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
+		112910812D59F2B8002AF153 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		112910832D59F329002AF153 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		112910CF2D59F4AB002AF153 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		1165BBFE2D3FC3110075279F /* NumberFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatManager.swift; sourceTree = "<group>"; };
 		1165BC002D3FD3840075279F /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		1165BC022D3FD58F0075279F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 		111EB0F92D39EF5C002C4532 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				112910812D59F2B8002AF153 /* BaseViewModel.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -210,6 +219,7 @@
 		111EB1092D3BF4E5002C4532 /* Topic */ = {
 			isa = PBXGroup;
 			children = (
+				112910CF2D59F4AB002AF153 /* TopicViewModel.swift */,
 				1165BC002D3FD3840075279F /* TopicView.swift */,
 				11BF4C892D3CEF4F00A1F027 /* TopicCollectionView.swift */,
 				111EB10B2D3BF50D002C4532 /* TopicViewController.swift */,
@@ -252,6 +262,7 @@
 		11BF4C8D2D3D052300A1F027 /* PhotoDetail */ = {
 			isa = PBXGroup;
 			children = (
+				1129107F2D59F2AD002AF153 /* PhotoDetailViewModel.swift */,
 				1165BC092D3FEE000075279F /* PhotoDetailView.swift */,
 				11BF4C8E2D3D052C00A1F027 /* PhotoDetailViewController.swift */,
 			);
@@ -262,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				116CE5A62D425CEE00C2D137 /* UserDefaultsManager.swift */,
+				112910832D59F329002AF153 /* Observable.swift */,
 				1165BBFE2D3FC3110075279F /* NumberFormatManager.swift */,
 				11BF4C962D3DC78C00A1F027 /* DateManager.swift */,
 			);
@@ -354,7 +366,9 @@
 				111EB0F32D39EF32002C4532 /* AppDelegate.swift in Sources */,
 				111EB1052D3BEE84002C4532 /* ColorFilterButton.swift in Sources */,
 				111EB1172D3C0D5E002C4532 /* UIViewController+.swift in Sources */,
+				112910D02D59F4AF002AF153 /* TopicViewModel.swift in Sources */,
 				111EB11D2D3C25E8002C4532 /* ResultCollectionView.swift in Sources */,
+				112910842D59F32D002AF153 /* Observable.swift in Sources */,
 				111EB10E2D3BF582002C4532 /* SearchViewController.swift in Sources */,
 				111EB1262D3C26D9002C4532 /* Urls.swift in Sources */,
 				116CE5A72D425CF700C2D137 /* UserDefaultsManager.swift in Sources */,
@@ -367,6 +381,7 @@
 				1165BC032D3FD5930075279F /* UIView+.swift in Sources */,
 				11BF4C912D3D066C00A1F027 /* PhotoDetail.swift in Sources */,
 				111EB1032D3BEDEC002C4532 /* BaseViewController.swift in Sources */,
+				112910802D59F2B2002AF153 /* PhotoDetailViewModel.swift in Sources */,
 				1165BC082D3FE0960075279F /* SearchView.swift in Sources */,
 				1165BC062D3FDFD90075279F /* BaseView.swift in Sources */,
 				111EB12A2D3C3362002C4532 /* NetworkService.swift in Sources */,
@@ -381,6 +396,7 @@
 				116CE5A32D42599100C2D137 /* BirthdayViewController.swift in Sources */,
 				116CE5A42D42599100C2D137 /* LevelViewController.swift in Sources */,
 				116CE5A52D42599100C2D137 /* NicknameViewController.swift in Sources */,
+				112910822D59F2BE002AF153 /* BaseViewModel.swift in Sources */,
 				111EB10C2D3BF513002C4532 /* TopicViewController.swift in Sources */,
 				1165BC012D3FD3880075279F /* TopicView.swift in Sources */,
 				1165BBFF2D3FC3190075279F /* NumberFormatManager.swift in Sources */,

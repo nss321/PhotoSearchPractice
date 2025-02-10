@@ -66,7 +66,6 @@ final class ProfileViewController: BaseViewController, PassBirthdayDelegate {
     }
 
     deinit {
-        // TODO: 그룹의 리브나 엔터가 남아있는지? 확인 필요. 만약 남아있다면 여러번 반복하는 과정에서 엣지 케이스 생길 수 있음.
         print(#function)
         if isCancel {
         } else {

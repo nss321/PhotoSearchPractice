@@ -23,6 +23,10 @@ struct PhotoResult: Decodable {
     let likes: Int
     let liked_by_user: Bool
     let user: PhotoResultUser
+    
+    static func emptyPhoto() -> PhotoResult {
+        return PhotoResult.init(id: "", created_at: "", updated_at: "", width: 0, height: 0, urls: PhotoResultUrl(small: "", thumb: ""), likes: 0, liked_by_user: false, user: PhotoResultUser(username: "", profile_image: PhotoResultProfileImage(small: "")))
+    }
 }
 
 struct PhotoResultUrl: Decodable {

@@ -9,43 +9,54 @@ import UIKit
 import SnapKit
 import Then
 
-enum Topic: String {
-    case goldenHour = "golden-hour"
-    case business = "business-work"
-    case architecture = "architecture-interior"
-    
-    var topicID: String {
-        rawValue
-    }
-}
 
 final class TopicViewController: BaseViewController {
     
-    private var goldenHourPhotoList = [PhotoResult]()
-    private var businessPhotoList = [PhotoResult]()
-    private var architecturePhotoList = [PhotoResult]()
     private let topicView = TopicView()
     
+    let viewModel = TopicViewModel()
+    
     override func loadView() {
-        print(#function)
         view = topicView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchTopicPhotos()
+        bind()
+        viewModel.fetchTopicPhotos()
+    }
+    
+    func bind() {
+        viewModel.output.outputAlert.lazyBind { [weak self] errors in
+            self?.showAlert(title: "로드 실패", message: errors.debugDescription, handler: nil)
+        }
+        viewModel.output.outputCollectionViewReload.lazyBind { [weak self] _ in
+            self?.topicView.topic1.reloadData()
+            self?.topicView.topic2.reloadData()
+            self?.topicView.topic3.reloadData()
+        }
+        viewModel.output.outputSelectedPhoto.lazyBind { [weak self] photo in
+            let vc = PhotoDetailViewController()
+            if let photo {
+                vc.viewModel.input.inputSelectedPhoto.value = photo
+            } else {
+                vc.viewModel.input.inputSelectedPhoto.value = PhotoResult.emptyPhoto()
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     override func configView() {
         super.configView()
-        
         self.navigationItem.title = "OUR TOPIC"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .automatic
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, image: UIImage(systemName: "person.circle"), primaryAction: UIAction(handler: { _ in
-            let vc = ProfileViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }), menu: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "person.circle"),
+            primaryAction: UIAction(handler: { _ in
+                let vc = ProfileViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }))
     }
     
     override func configDelegate() {
@@ -63,38 +74,6 @@ final class TopicViewController: BaseViewController {
         }
     }
     
-    private func fetchTopicPhotos() {
-        let group = DispatchGroup()
-        
-        group.enter()
-        NetworkService.shared.callPhotoRequest(api: .topic(topic: .goldenHour), type: [PhotoResult].self, completion: { PhotoList in
-            self.goldenHourPhotoList = PhotoList
-            group.leave()
-        }, failureHandler: {
-            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
-        })
-        group.enter()
-        NetworkService.shared.callPhotoRequest(api: .topic(topic: .business), type: [PhotoResult].self, completion: { PhotoList in
-            self.businessPhotoList = PhotoList
-            group.leave()
-        }, failureHandler: {
-            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
-        })
-
-        group.enter()
-        NetworkService.shared.callPhotoRequest(api: .topic(topic: .architecture), type: [PhotoResult].self, completion: { PhotoList in
-            self.architecturePhotoList = PhotoList
-            group.leave()
-        }, failureHandler: {
-            self.showAlert(title: "로드 실패", message: $0.errors.debugDescription, handler: nil)
-        })
-        
-        group.notify(queue: .main) {
-            self.topicView.topic1.reloadData()
-            self.topicView.topic2.reloadData()
-            self.topicView.topic3.reloadData()
-        }
-    }
 }
 
 extension TopicViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -102,11 +81,11 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case topicView.topic1:
-            return goldenHourPhotoList.count
+            return viewModel.goldenHourPhotoList.count
         case topicView.topic2:
-            return businessPhotoList.count
+            return viewModel.businessPhotoList.count
         case topicView.topic3:
-            return architecturePhotoList.count
+            return viewModel.architecturePhotoList.count
         default:
             return 0
         }
@@ -118,18 +97,17 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
         
         switch collectionView {
         case topicView.topic1:
-            cell.config(item: goldenHourPhotoList[indexPath.item])
+            cell.config(item: viewModel.goldenHourPhotoList[indexPath.item])
             break
         case topicView.topic2:
-            cell.config(item: businessPhotoList[indexPath.item])
+            cell.config(item: viewModel.businessPhotoList[indexPath.item])
             break
         case topicView.topic3:
-            cell.config(item: architecturePhotoList[indexPath.item])
+            cell.config(item: viewModel.architecturePhotoList[indexPath.item])
             break
         default:
             break
         }
-
         return cell
     }
     
@@ -139,48 +117,19 @@ extension TopicViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = PhotoDetailViewController()
-        let group = DispatchGroup()
         
         switch collectionView {
         case topicView.topic1:
-            group.enter()
-            NetworkService.shared.callPhotoRequest(api: .detail(id: goldenHourPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
-                vc.photoDetail = PhotoDetail
-                vc.givenPhotoInfo = self.goldenHourPhotoList[indexPath.item]
-                group.leave()
-            }, failureHandler: {
-                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
-            })
-    
+            viewModel.input.inputSelectedPhoto.value = viewModel.goldenHourPhotoList[indexPath.item]
             break
         case topicView.topic2:
-            group.enter()
-            NetworkService.shared.callPhotoRequest(api: .detail(id: businessPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
-                vc.photoDetail = PhotoDetail
-                vc.givenPhotoInfo = self.businessPhotoList[indexPath.item]
-                group.leave()
-                
-            }, failureHandler: {
-                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
-            })
+            viewModel.input.inputSelectedPhoto.value = viewModel.businessPhotoList[indexPath.item]
             break
         case topicView.topic3:
-            group.enter()
-            NetworkService.shared.callPhotoRequest(api: .detail(id: businessPhotoList[indexPath.item].id), type: PhotoDetail.self, completion: { PhotoDetail in
-                vc.photoDetail = PhotoDetail
-                vc.givenPhotoInfo = self.architecturePhotoList[indexPath.item]
-                group.leave()
-            }, failureHandler: {
-                self.showAlert(title: "이미지 로드 실패", message: $0.errors.debugDescription, handler: nil)
-            })
+            viewModel.input.inputSelectedPhoto.value = viewModel.architecturePhotoList[indexPath.item]
             break
         default:
             break
         }
-        
-        group.notify(queue: .main) {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-
     }
 }
